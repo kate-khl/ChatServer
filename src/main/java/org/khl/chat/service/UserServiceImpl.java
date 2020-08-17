@@ -5,8 +5,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.khl.chat.entity.User;
 import org.khl.chat.exception.NotAuthorizeException;
+import org.khl.chat.exception.UserNotFoundException;
 import org.khl.chat.model.UserDto;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -37,10 +40,13 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDto findById(int id) {
-		User user = USER_REPOSITORY_MAP.get(id);
-		UserDto uDto = new UserDto(user.getId(), user.getName(), user.getEmail(), null);
+		if(USER_REPOSITORY_MAP.containsKey(id)){
+			User user = USER_REPOSITORY_MAP.get(id);
+			UserDto uDto = new UserDto(user.getId(), user.getName(), user.getEmail(), null);
+			return uDto;
+		}
+		else throw new UserNotFoundException("Пользователь не найден");
 
-		return uDto;
 	}
 
 	@Override
@@ -49,7 +55,7 @@ public class UserServiceImpl implements UserService {
 			USER_REPOSITORY_MAP.put(id, user);
 			return true;
 		}
-		return false;
+		else throw new UserNotFoundException("Пользователь не найден");
 	}
 
 	@Override
@@ -58,7 +64,8 @@ public class UserServiceImpl implements UserService {
 			USER_REPOSITORY_MAP.remove(id);
 			return true;
 		}
-		return false;
+		else throw new UserNotFoundException("Пользователь не найден");
+	//	return false;
 	}
 
 	@Override
@@ -71,13 +78,10 @@ public class UserServiceImpl implements UserService {
 				if(u.getPassword().equals(password)) {
 					return "secret";
 				}
-				else throw new NotAuthorizeException("Ошибка авторизации1");
+				else throw new NotAuthorizeException("Ошибка авторизации1"); //ResponseStatusException(HttpStatus.UNAUTHORIZED, "ololololo");//;
 			}
 			else throw new NotAuthorizeException("Ошибка авторизации");
 		}
 		return "n";
 	}
-	
-	
-
 }

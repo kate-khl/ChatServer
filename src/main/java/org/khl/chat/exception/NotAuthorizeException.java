@@ -3,7 +3,7 @@ package org.khl.chat.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(code = HttpStatus.UNAUTHORIZED, reason = "111")
+@ResponseStatus(code = HttpStatus.UNAUTHORIZED)
 public class NotAuthorizeException extends RuntimeException{
 
 	public NotAuthorizeException() {
