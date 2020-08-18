@@ -1,8 +1,13 @@
 package org.khl.chat.model;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import org.khl.chat.entity.User;
 
 
 public class UserDto {
@@ -24,6 +29,12 @@ public class UserDto {
 		this.password = password;
 	}
 
+	public UserDto(User u) {
+		this.id = u.getId();
+		this.name = u.getName();
+		this.email = u.getEmail();
+		this.password = u.getPassword();
+	}
 	public int getId() {
 		return id;
 	}

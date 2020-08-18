@@ -1,5 +1,7 @@
 package org.khl.chat.entity;
 
+import org.khl.chat.model.UserDto;
+
 public class User {
 	private int id;
 	private String name;
@@ -14,6 +16,14 @@ public class User {
 		this.email = email;
 		this.password = password;
 	}
+	
+	public User(UserDto u) {
+		this.id = u.getId();
+		this.name = u.getName();
+		this.email = u.getEmail();
+		this.password = u.getPassword();
+	}
+	
 	public int getId() {
 		return id;
 	}

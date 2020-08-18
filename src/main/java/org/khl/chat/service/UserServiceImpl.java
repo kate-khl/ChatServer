@@ -5,7 +5,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.khl.chat.entity.User;
 import org.khl.chat.exception.NotAuthorizeException;
-import org.khl.chat.exception.UserNotFoundException;
+import org.khl.chat.exception.NotFoundException;
 import org.khl.chat.model.UserDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ public class UserServiceImpl implements UserService {
 	
 	private static final Map<Integer, User> USER_REPOSITORY_MAP = new HashMap<>();
 	private static final AtomicInteger USER_ID = new AtomicInteger();
-	private static final AtomicInteger SESSION_ID = new AtomicInteger();
+//	private static final AtomicInteger SESSION_ID = new AtomicInteger();
 	
 	@Override
 	public void create(UserDto userDto) {
@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
 			UserDto uDto = new UserDto(user.getId(), user.getName(), user.getEmail(), null);
 			return uDto;
 		}
-		else throw new UserNotFoundException("Пользователь не найден");
+		else throw new NotFoundException("Пользователь не найден");
 
 	}
 
@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
 			USER_REPOSITORY_MAP.put(id, user);
 			return true;
 		}
-		else throw new UserNotFoundException("Пользователь не найден");
+		else throw new NotFoundException("Пользователь не найден");
 	}
 
 	@Override
@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
 			USER_REPOSITORY_MAP.remove(id);
 			return true;
 		}
-		else throw new UserNotFoundException("Пользователь не найден");
+		else throw new NotFoundException("Пользователь не найден");
 	//	return false;
 	}
 

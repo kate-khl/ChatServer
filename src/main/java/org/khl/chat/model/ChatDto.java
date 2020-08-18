@@ -7,9 +7,9 @@ import org.khl.chat.entity.User;
 public class ChatDto {
 
 	private int id;
-	private Collection<User> users;
+	private Collection<UserDto> users;
 	private String name;
-	private Collection<Message> messages;
+	private Collection<MessageDto> messages;
 
 	public int getId() {
 		return id;
@@ -17,10 +17,10 @@ public class ChatDto {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public Collection<User> getUsers() {
+	public Collection<UserDto> getUsers() {
 		return users;
 	}
-	public void setUsers(Collection<User> users) {
+	public void setUsers(Collection<UserDto> users) {
 		this.users = users;
 	}
 	public String getName() {
@@ -29,10 +29,10 @@ public class ChatDto {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Collection<Message> getMessages() {
+	public Collection<MessageDto> getMessages() {
 		return messages;
 	}
-	public void setMessages(Collection<Message> messages) {
+	public void setMessages(Collection<MessageDto> messages) {
 		this.messages = messages;
 	}
 }
