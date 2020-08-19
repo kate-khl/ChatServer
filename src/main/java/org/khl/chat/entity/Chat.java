@@ -1,6 +1,11 @@
 package org.khl.chat.entity;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import org.khl.chat.entity.User;
+import org.khl.chat.model.ChatDto;
+import org.khl.chat.model.MessageDto;
+import org.khl.chat.model.UserDto;
 
 public class Chat {
 
@@ -8,6 +13,46 @@ public class Chat {
 	private Collection<User> users;
 	private String name;
 	private Collection<Message> messages;
+	
+	public Chat() {}
+	
+	public Chat(int id, Collection<User> users, String name, Collection<Message> messages) {
+		super();
+		this.id = id;
+		this.users = users;
+		this.name = name;
+		this.messages = messages;
+	}
+	
+	public Chat(ChatDto chatDto) {
+		super();
+		this.id = chatDto.getId();
+		this.users = convertDtoToUsers(chatDto.getUsers());
+		this.name = chatDto.getName();
+		this.messages = convertMsgDtoToMsg(chatDto.getMessages());
+	}
+
+	
+	private static Collection<User> convertDtoToUsers(Collection<UserDto> usersDto) {
+		Collection<User> users = new ArrayList<User>();  
+		
+		for (UserDto user : usersDto) {
+			User u = new User(user);
+			users.add(u);
+		}
+		return users;
+	}
+	
+	private static Collection<Message> convertMsgDtoToMsg(Collection<MessageDto> msgDto) {
+		Collection<Message> msgs = new ArrayList<Message>();  
+		
+		for (MessageDto msg : msgDto) {
+			Message m = new Message(msg);
+			msgs.add(m);
+		}
+		return msgs;
+	}
+
 	public int getId() {
 		return id;
 	}

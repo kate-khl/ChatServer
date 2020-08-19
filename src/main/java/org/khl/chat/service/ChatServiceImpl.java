@@ -19,17 +19,17 @@ public class ChatServiceImpl implements ChatService{
 	private static final AtomicInteger CHAT_ID = new AtomicInteger();
 	
 	@Override
-	public void createChat(Collection<UserDto> usersDto, String name) {
+	public void createChat(ChatDto chatDto) {
 		int chat_id = CHAT_ID.incrementAndGet();
-		Chat chat = new Chat();
-		chat.setId(chat_id);
-		Collection<User> users = new ArrayList<User>();  
+		//Chat chat = new Chat();
+		//chat.setId(chat_id);
+		/*Collection<User> users = new ArrayList<User>();  
 		for (UserDto user : usersDto) {
 			User u = new User(user);
 			users.add(u);
-		}
-		chat.setUsers(users);
-		CHAT_REPOSITORY_MAP.put(chat_id, chat);	
+		}*/
+		//chat.setUsers(users);
+		CHAT_REPOSITORY_MAP.put(chat_id, new Chat(chatDto));	
 	}
 
 	@Override
@@ -76,7 +76,5 @@ public class ChatServiceImpl implements ChatService{
 		if (CHAT_REPOSITORY_MAP.containsKey(id)) {
 			CHAT_REPOSITORY_MAP.remove(id);
 		} else throw new NotFoundException("Чат не найден");
-		
 	}
-
 }
