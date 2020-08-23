@@ -8,16 +8,16 @@ public class Message {
 
 	private int id;
 	private String value;
-	private User author;
+	private int authorId;
 	private Date date;
 	
 	public Message() {}
 	
-	public Message(int id, String value, User author, Date date) {
+	public Message(int id, String value, int authorId, Date date) {
 		super();
 		this.id = id;
 		this.value = value;
-		this.author = author;
+		this.authorId = authorId;
 		this.date = date;
 	}
 	
@@ -25,7 +25,7 @@ public class Message {
 		super();
 		this.id = msgDto.getId();
 		this.value = msgDto.getValue();
-		this.author = msgDto.getAuthor();
+		this.authorId = msgDto.getAuthorId();
 		this.date = msgDto.getDate();
 	}
 	
@@ -41,11 +41,11 @@ public class Message {
 	public void setValue(String value) {
 		this.value = value;
 	}
-	public User getAuthor() {
-		return author;
+	public int getAuthorId() {
+		return authorId;
 	}
-	public void setAuthor(User author) {
-		this.author = author;
+	public void setAuthorId(int authorId) {
+		this.authorId = authorId;
 	}
 	public Date getDate() {
 		return date;

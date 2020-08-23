@@ -9,21 +9,21 @@ public class MessageDto {
 	
 	private int id;
 	private String value;
-	private User author;
+	private int authorId;
 	private Date date;
 	
-	public MessageDto(int id, String value, User author, Date date) {
+	public MessageDto(int id, String value, int authorId, Date date) {
 		super();
 		this.id = id;
 		this.value = value;
-		this.author = author;
+		this.authorId = authorId;
 		this.date = date;
 	}
 	
 	public MessageDto(Message msg) {
 		this.id = msg.getId();
 		this.value = msg.getValue();
-		this.author = msg.getAuthor();
+		this.authorId = msg.getAuthorId();
 		this.date = msg.getDate();
 	}
 	
@@ -39,11 +39,11 @@ public class MessageDto {
 	public void setValue(String value) {
 		this.value = value;
 	}
-	public User getAuthor() {
-		return author;
+	public int getAuthorId() {
+		return authorId;
 	}
-	public void setAuthor(User author) {
-		this.author = author;
+	public void setAuthor(int authorId) {
+		this.authorId = authorId;
 	}
 	public Date getDate() {
 		return date;
