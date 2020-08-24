@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AuthFilter extends HttpFilter{
+public class AuthFilter extends HttpFilter {
 
 	/**
 	 * 
@@ -29,20 +29,23 @@ public class AuthFilter extends HttpFilter{
 //	public AuthFilter(TokenService tokenService) {
 //		this.tokenService = tokenService;
 //	}
-	
+
+	private final TokenService ts;
+
+	public AuthFilter(TokenService srv) {
+		ts = srv;
+	}
+
 	@Override
 	protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		
-		TokenServiceImpl ts = new TokenServiceImpl();
-		if (ts.verificationToken( request.getHeader("Authorization"))) {
+
+		if (ts.verificationToken(request.getHeader("Authorization"))) {
 			chain.doFilter(request, response);
-		}
-		else response.setStatus(401);
+		} else
+			response.setStatus(401);
 	}
 
-	
-	
 //	@Override
 //	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 //			throws IOException, ServletException {

@@ -1,9 +1,14 @@
 package org.khl.chat.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 import org.khl.chat.model.UserDto;
 
+@Entity 
 public class User {
-	private int id;
+	@Id
+	private Long id;
 	private String name;
 	private String email;
 	private String password;
@@ -12,7 +17,7 @@ public class User {
 
 	public User () {};
 	
-	public User(int id, String name, String email, String password, String role) {
+	public User(Long id, String name, String email, String password, String role) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -29,10 +34,10 @@ public class User {
 		this.role = u.getRole();
 	}
 	
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getName() {

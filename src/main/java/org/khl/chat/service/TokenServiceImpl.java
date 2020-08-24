@@ -13,13 +13,12 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.TextCodec;
 
 @Service
-public class TokenServiceImpl implements TokenService{
+public class TokenServiceImpl implements TokenService {
 
-
-	public TokenServiceImpl(){}
-//	public TokenServiceImpl(UserService userService) {
-//		this.userService = userService;
-//	}
+	@Autowired
+	public TokenServiceImpl(UserService userService) {
+		this.userService = userService;
+	}
 	private UserService userService;
 
 	@Override
@@ -27,49 +26,41 @@ public class TokenServiceImpl implements TokenService{
 
 		UserDto userDto = new UserDto();
 		userDto = userService.findUserByEmail(email);
-		String jws = Jwts.builder()
-				  .setHeaderParam("typ", "JWT")
-				  .setIssuer("issuer")
-				  .setSubject(userDto.getEmail())
-				  .claim("id", userDto.getId())
-				  .claim("name", userDto.getName())
-				  .claim("role", userDto.getRole())
+		String jws = Jwts.builder().setHeaderParam("typ", "JWT").setIssuer("issuer").setSubject(userDto.getEmail())
+				.claim("id", userDto.getId()).claim("name", userDto.getName()).claim("role", userDto.getRole())
 //				   //Fri Jun 24 2016 15:33:42 GMT-0400 (EDT)
 //				  .setIssuedAt(Date.from(Instant.ofEpochSecond(1466796822L)))
 //				   //Sat Jun 24 2116 15:33:42 GMT-0400 (EDT)
 //				  .setExpiration(Date.from(Instant.ofEpochSecond(4622470422L)))
-				  .signWith(
-						  SignatureAlgorithm.HS512, "secretKey"
+				.signWith(SignatureAlgorithm.HS512, "secretKey"
 //				    SignatureAlgorithm.HS256,
 //				    TextCodec.BASE64.decode("Yn2kjibddFAWtnPJ2AFlL8WXmohJMCvigQggaEypa5E=")
-				  )
-				  .compact();
-		
+				).compact();
+
 		return jws;
 	}
-	
+
 	@Override
-    public boolean verificationToken (String token)
-    {
-        if (token == null) 
-            return false;
+	public boolean verificationToken(String token) {
+		if (token == null)
+			return false;
 
-        try {
-            Jwts.parser().setSigningKey("secretKey").parseClaimsJws(token).getBody();
+		try {
+			Jwts.parser().setSigningKey("secretKey").parseClaimsJws(token).getBody();
 
-            System.out.println("Valid Token " + token);
-            return true;
-            
-        } catch (ExpiredJwtException expiredJwtException) {
-            System.out.println("Token Expires " + expiredJwtException);
-            return false;
-        }
+			
+			System.out.println("Valid Token " + token);
+			return true;
 
-        catch (Exception exception) {
-            System.out.println("Exceptioin " + exception);
-            return false;
-        }
-    }
-	
+		} catch (ExpiredJwtException expiredJwtException) {
+			System.out.println("Token Expires " + expiredJwtException);
+			return false;
+		}
+
+		catch (Exception exception) {
+			System.out.println("Exceptioin " + exception);
+			return false;
+		}
+	}
 
 }

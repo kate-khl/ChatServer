@@ -12,7 +12,7 @@ import org.khl.chat.entity.User;
 
 public class UserDto {
 	
-	private int id;
+	private Long id;
 	@NotBlank @NotNull 
 	private String name;
 	@Email @NotNull 
@@ -24,7 +24,7 @@ public class UserDto {
 	
 	public UserDto() {}
 			
-	public UserDto(int id, String name, String email, String password, String role) {
+	public UserDto(Long id, String name, String email, String password, String role) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -41,10 +41,10 @@ public class UserDto {
 		this.password = u.getPassword();
 		this.role = u.getRole();
 	}
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getName() {

@@ -11,6 +11,7 @@ import org.khl.chat.model.UserDto;
 import org.khl.chat.service.TokenService;
 import org.khl.chat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.WebApplicationContext;
 
 @RestController
 public class UserController {
@@ -43,6 +45,7 @@ public class UserController {
 		   }
 		   else return null;
 	   }
+	   
 	   
 	   @PostMapping("/registration")
 	   @ResponseStatus(code = HttpStatus.CREATED)

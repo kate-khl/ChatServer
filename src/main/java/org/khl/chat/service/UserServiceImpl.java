@@ -3,10 +3,14 @@ package org.khl.chat.service;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import javax.transaction.Transactional;
+
+import org.khl.chat.dao.UserDao;
 import org.khl.chat.entity.User;
 import org.khl.chat.exception.NotAuthorizeException;
 import org.khl.chat.exception.NotFoundException;
 import org.khl.chat.model.UserDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -14,8 +18,11 @@ import org.springframework.web.server.ResponseStatusException;
 @Service
 public class UserServiceImpl implements UserService {
 	
-	private static final Map<Integer, User> USER_REPOSITORY_MAP = new HashMap<>();
+	private static final Map<Long, User> USER_REPOSITORY_MAP = new HashMap<>();
 	private static final AtomicInteger USER_ID = new AtomicInteger();
+	
+	@Autowired
+	private UserDao udao;
 //	private GenerateTokenService generateTokenService;
 //	private static final AtomicInteger SESSION_ID = new AtomicInteger();
 	
@@ -24,10 +31,12 @@ public class UserServiceImpl implements UserService {
 //	}
 	
 	@Override
+	@Transactional
 	public void create(UserDto userDto) {
-		int user_id = USER_ID.incrementAndGet();
+		Long user_id = (long)USER_ID.incrementAndGet();
 		userDto.setId(user_id);
 		User user = new User(userDto);
+		udao.save(user);
 		USER_REPOSITORY_MAP.put(user_id, user);	
 	}
 
@@ -53,11 +62,11 @@ public class UserServiceImpl implements UserService {
 		else throw new NotFoundException("Пользователь не найден");
 
 	}
-
+	
 	@Override
 	public boolean edit(User user, int id) {
 		if(USER_REPOSITORY_MAP.containsKey(id)){
-			USER_REPOSITORY_MAP.put(id, user);
+			USER_REPOSITORY_MAP.put((long)id, user);
 			return true;
 		}
 		else throw new NotFoundException("Пользователь не найден");
