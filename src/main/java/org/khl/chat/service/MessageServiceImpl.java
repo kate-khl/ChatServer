@@ -1,13 +1,14 @@
 package org.khl.chat.service;
 
 import org.khl.chat.model.MessageDto;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.khl.chat.entity.Message;
 import org.khl.chat.exception.NotFoundException;;
-
+ @Service
 public class MessageServiceImpl implements MessageService{
 	
 	private static final Map<Integer, Message> MESSAGE_MAP_REPOSITORY = new HashMap<>();

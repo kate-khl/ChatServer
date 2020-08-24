@@ -12,7 +12,9 @@ import org.khl.chat.entity.User;
 import org.khl.chat.exception.NotFoundException;
 import org.khl.chat.model.ChatDto;
 import org.khl.chat.model.UserDto;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ChatServiceImpl implements ChatService{
 
 	private static final Map<Integer, Chat> CHAT_REPOSITORY_MAP = new HashMap<>();
