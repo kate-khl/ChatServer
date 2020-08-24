@@ -18,22 +18,28 @@ public class UserDto {
 	@Email @NotNull 
 	private String email;
 	@NotBlank @NotNull 
-	private String  password;
+	private String  password;	
+	@NotBlank @NotNull 
+	private String  role;
 	
-
-	public UserDto(int id, String name, String email, String password) {
+	public UserDto() {}
+			
+	public UserDto(int id, String name, String email, String password, String role) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
+		this.role = role;
 	}
+
 
 	public UserDto(User u) {
 		this.id = u.getId();
 		this.name = u.getName();
 		this.email = u.getEmail();
 		this.password = u.getPassword();
+		this.role = u.getRole();
 	}
 	public int getId() {
 		return id;
@@ -58,6 +64,13 @@ public class UserDto {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public String getRole() {
+		return role;
+	}
+	
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 }

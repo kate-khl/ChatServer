@@ -16,13 +16,18 @@ public class UserServiceImpl implements UserService {
 	
 	private static final Map<Integer, User> USER_REPOSITORY_MAP = new HashMap<>();
 	private static final AtomicInteger USER_ID = new AtomicInteger();
+//	private GenerateTokenService generateTokenService;
 //	private static final AtomicInteger SESSION_ID = new AtomicInteger();
+	
+//	UserServiceImpl(GenerateTokenService generateTokenService){
+//		this.generateTokenService = generateTokenService;
+//	}
 	
 	@Override
 	public void create(UserDto userDto) {
 		int user_id = USER_ID.incrementAndGet();
 		userDto.setId(user_id);
-		User user = new User(user_id, userDto.getName(), userDto.getEmail(), userDto.getPassword());
+		User user = new User(userDto);
 		USER_REPOSITORY_MAP.put(user_id, user);	
 	}
 
@@ -32,7 +37,7 @@ public class UserServiceImpl implements UserService {
 				
 		for (User u : USER_REPOSITORY_MAP.values())
 		{
-			UserDto uDto = new UserDto(u.getId(), u.getName(), u.getEmail(), null);
+			UserDto uDto = new UserDto(u.getId(), u.getName(), u.getEmail(), null, u.getRole());
 			userDtoList.add(uDto);
 		}
 		return userDtoList;
@@ -42,7 +47,7 @@ public class UserServiceImpl implements UserService {
 	public UserDto findById(int id) {
 		if(USER_REPOSITORY_MAP.containsKey(id)){
 			User user = USER_REPOSITORY_MAP.get(id);
-			UserDto uDto = new UserDto(user.getId(), user.getName(), user.getEmail(), null);
+			UserDto uDto = new UserDto(user.getId(), user.getName(), user.getEmail(), null, user.getRole());
 			return uDto;
 		}
 		else throw new NotFoundException("Пользователь не найден");
@@ -69,19 +74,28 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public String checkLogin(String email, String password) {
+	public boolean checkLogin(String email, String password) {
 //		USER_REPOSITORY_MAP.forEach((k,v)->{	
 //		});
 		
 		for(User u : USER_REPOSITORY_MAP.values()) {
 			if (u.getEmail().equals(email)) {
 				if(u.getPassword().equals(password)) {
-					return "secret";
+					return true;
 				}
 				else throw new NotAuthorizeException("Ошибка авторизации1"); //ResponseStatusException(HttpStatus.UNAUTHORIZED, "ololololo");//;
 			}
 			else throw new NotAuthorizeException("Ошибка авторизации");
 		}
-		return "n";
+		return false;
+	}
+	
+	public UserDto findUserByEmail(String email) {
+		for(User u : USER_REPOSITORY_MAP.values()) {
+			if (u.getEmail().equals(email)) {
+					return new UserDto(u);	
+			}
+		}
+		return null;
 	}
 }

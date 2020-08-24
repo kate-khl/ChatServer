@@ -18,5 +18,7 @@ public interface UserService {
 	   
 	   boolean remove(int id);
 	   
-	   String checkLogin(String email, String password);
+	   boolean checkLogin(String email, String password);
+	   
+	   UserDto findUserByEmail (String Email);
 }
