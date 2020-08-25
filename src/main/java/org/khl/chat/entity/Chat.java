@@ -2,16 +2,26 @@ package org.khl.chat.entity;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import org.khl.chat.entity.User;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+
 import org.khl.chat.model.ChatDto;
 import org.khl.chat.model.MessageDto;
 import org.khl.chat.model.UserDto;
 
+@Entity
 public class Chat {
 
+	@Id
 	private int id;
+	@ManyToMany(mappedBy = "chats")
 	private Collection<User> users;
 	private String name;
+	@OneToMany(mappedBy = "chat")
 	private Collection<Message> messages;
 	
 	public Chat() {}

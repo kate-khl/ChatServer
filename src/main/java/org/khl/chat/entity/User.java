@@ -1,7 +1,14 @@
 package org.khl.chat.entity;
 
+import java.util.Collection;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn; 
 
 import org.khl.chat.model.UserDto;
 
@@ -13,6 +20,15 @@ public class User {
 	private String email;
 	private String password;
 	private String role;
+
+	
+    @ManyToMany//(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(
+    		name = "users_chats",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "chat_id"))
+	private Collection<Chat> chats;
+	
 	
 
 	public User () {};
@@ -64,5 +80,12 @@ public class User {
 	public void setRole(String role) {
 		this.role = role;
 	}
-
+	
+//	public Collection<Chat> getChats() {
+//		return chats;
+//	}
+//	
+//	public void setChats(Collection<Chat> chats) {
+//		this.chats = chats;
+//	}
 }

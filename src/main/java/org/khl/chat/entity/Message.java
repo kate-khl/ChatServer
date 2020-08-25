@@ -2,14 +2,25 @@ package org.khl.chat.entity;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import org.khl.chat.model.MessageDto;
 
+@Entity
 public class Message {
 
+	@Id
 	private int id;
 	private String value;
-	private int authorId;
+	private int userId;
 	private Date date;
+	@ManyToOne(optional = false, cascade = CascadeType.ALL)
+	@JoinColumn(name = "chat_id")
+	private Chat chat;
 	
 	public Message() {}
 	
@@ -17,7 +28,7 @@ public class Message {
 		super();
 		this.id = id;
 		this.value = value;
-		this.authorId = authorId;
+		this.userId = authorId;
 		this.date = date;
 	}
 	
@@ -25,7 +36,7 @@ public class Message {
 		super();
 		this.id = msgDto.getId();
 		this.value = msgDto.getValue();
-		this.authorId = msgDto.getAuthorId();
+		this.userId = msgDto.getAuthorId();
 		this.date = msgDto.getDate();
 	}
 	
@@ -42,10 +53,10 @@ public class Message {
 		this.value = value;
 	}
 	public int getAuthorId() {
-		return authorId;
+		return userId;
 	}
 	public void setAuthorId(int authorId) {
-		this.authorId = authorId;
+		this.userId = authorId;
 	}
 	public Date getDate() {
 		return date;

@@ -57,7 +57,7 @@ public class UserController {
 	   
 	   @DeleteMapping("/users/{id}")
 	   @ResponseStatus(code = HttpStatus.OK)
-	   public boolean remove(@PathVariable(name = "id") int id) {
+	   public boolean remove(@PathVariable(name = "id") Long id) {
 		   userService.remove(id);
 		   return true;
 	   }
@@ -70,7 +70,7 @@ public class UserController {
 	   
 	   @GetMapping("/users/{id}")
 	   @ResponseStatus(code = HttpStatus.OK)
-	   public UserDto findById(@PathVariable(name = "id") int id, @RequestHeader HttpHeaders headers) {
+	   public UserDto findById(@PathVariable(name = "id") Long id, @RequestHeader HttpHeaders headers) {
 		   String token = headers.getFirst("Authorization");
 		   if (tokenService.verificationToken(token)) return userService.findById(id);
 		   else throw new NotAuthorizeException("Ошибка авторизации");
@@ -78,9 +78,9 @@ public class UserController {
 	   
 	   @PostMapping("/users/edit")
 	   @ResponseStatus(code = HttpStatus.OK)
-	   public UserDto edit(@RequestBody @Valid User user, int id) {
-		   userService.edit(user, id);
-		   return userService.findById(id);
+	   public UserDto edit(@RequestBody @Valid User user) {
+		   userService.edit(user);
+		   return userService.findById(user.getId());
 	   }
 	   
 	   

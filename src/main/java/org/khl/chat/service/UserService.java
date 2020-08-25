@@ -12,11 +12,11 @@ public interface UserService {
 	   
 	   List<UserDto> readAll();
 	   
-	   UserDto findById(int id);
+	   UserDto findById(Long id);
 	   
-	   boolean edit(User user, int id);
+	   boolean edit(User user);
 	   
-	   boolean remove(int id);
+	   boolean remove(Long id);
 	   
 	   boolean checkLogin(String email, String password);
 	   

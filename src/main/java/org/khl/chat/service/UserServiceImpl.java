@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserDto findById(int id) {
+	public UserDto findById(Long id) {
 		if(USER_REPOSITORY_MAP.containsKey(id)){
 			User user = USER_REPOSITORY_MAP.get(id);
 			UserDto uDto = new UserDto(user.getId(), user.getName(), user.getEmail(), null, user.getRole());
@@ -64,16 +64,16 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public boolean edit(User user, int id) {
-		if(USER_REPOSITORY_MAP.containsKey(id)){
-			USER_REPOSITORY_MAP.put((long)id, user);
+	public boolean edit(User user) {
+		if(USER_REPOSITORY_MAP.containsKey(user.getId())){
+			USER_REPOSITORY_MAP.put(user.getId(), user);
 			return true;
 		}
 		else throw new NotFoundException("Пользователь не найден");
 	}
 
 	@Override
-	public boolean remove(int id) {
+	public boolean remove(Long id) {
 		if(USER_REPOSITORY_MAP.containsKey(id)){
 			USER_REPOSITORY_MAP.remove(id);
 			return true;
