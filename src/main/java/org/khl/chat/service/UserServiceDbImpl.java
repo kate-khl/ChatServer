@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import org.khl.chat.Session;
 import org.khl.chat.dao.UserDao;
 import org.khl.chat.entity.User;
 import org.khl.chat.exception.NotAuthorizeException;
@@ -21,6 +22,8 @@ public class UserServiceDbImpl implements UserService{
 	
 	@Autowired
 	private UserDao udao;
+	@Autowired
+	private Session session;
 	
 	@Override
 	@Transactional
@@ -32,8 +35,7 @@ public class UserServiceDbImpl implements UserService{
 	@Transactional
 	public List<UserDto> readAll() {
 		ArrayList<UserDto> userDtoList = new ArrayList<>();
-		for (User u : udao.findAll())
-		{
+		for (User u : udao.findAll()){
 			UserDto uDto = new UserDto(u.getId(), u.getName(), u.getEmail(), null, u.getRole());
 			userDtoList.add(uDto);
 		}

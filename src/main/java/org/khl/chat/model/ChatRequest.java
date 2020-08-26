@@ -4,10 +4,10 @@ import java.util.Collection;
 import org.khl.chat.entity.Message;
 import org.khl.chat.entity.User;
 
-public class ChatDto {
+public class ChatRequest {
 
 	private int id;
-	private Collection<UserDto> users;
+	private Long[] users;
 	private String name;
 	private Collection<MessageDto> messages;
 //	private User creator;
@@ -18,10 +18,10 @@ public class ChatDto {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public Collection<UserDto> getUsers() {
+	public Long[] getUsers() {
 		return users;
 	}
-	public void setUsers(Collection<UserDto> users) {
+	public void setUsers(Long[] users) {
 		this.users = users;
 	}
 	public String getName() {

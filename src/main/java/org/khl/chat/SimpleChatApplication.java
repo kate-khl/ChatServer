@@ -1,5 +1,9 @@
 package org.khl.chat;
 
+import java.util.Base64;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.khl.chat.controller.AuthFilter;
 import org.khl.chat.model.UserDto;
 import org.khl.chat.service.TokenService;
@@ -11,6 +15,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpRequest;
 import org.springframework.web.context.WebApplicationContext;
+
+import com.google.gson.Gson;
 
 @SpringBootApplication
 public class SimpleChatApplication {
@@ -33,10 +39,10 @@ public class SimpleChatApplication {
 	
 	@Bean
 	@Scope(scopeName = WebApplicationContext.SCOPE_REQUEST)
-	public UserDto user(@Autowired HttpRequest request){
-		System.out.println(request);
-		
-		return null;
+	public Session user(@Autowired HttpServletRequest req){
+		String token = req.getHeader("Authorization");
+		return Session.fromToken(token);
+
 	}
 	
 	

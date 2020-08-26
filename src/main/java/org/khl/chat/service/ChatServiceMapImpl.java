@@ -15,7 +15,7 @@ import org.khl.chat.model.UserDto;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ChatServiceImpl implements ChatService{
+public class ChatServiceMapImpl implements ChatService{
 
 	private static final Map<Integer, Chat> CHAT_REPOSITORY_MAP = new HashMap<>();
 	private static final AtomicInteger CHAT_ID = new AtomicInteger();
