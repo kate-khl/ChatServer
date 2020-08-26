@@ -8,7 +8,7 @@ import org.khl.chat.model.UserDto;
 public interface UserService {
 
 
-	   void create(UserDto userDto);
+	   UserDto create(UserDto userDto);
 	   
 	   List<UserDto> readAll();
 	   

@@ -2,6 +2,7 @@ package org.khl.chat.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -10,8 +11,12 @@ import org.khl.chat.entity.User;
 import org.khl.chat.exception.NotAuthorizeException;
 import org.khl.chat.model.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
-public class UserServiceImplH2 implements UserService{
+@Service
+@Qualifier("db")
+public class UserServiceDbImpl implements UserService{
 
 	
 	@Autowired
@@ -19,8 +24,8 @@ public class UserServiceImplH2 implements UserService{
 	
 	@Override
 	@Transactional
-	public void create(UserDto userDto) {
-		udao.save(new User(userDto));
+	public UserDto create(UserDto userDto) {
+		return new UserDto(udao.save(new User(userDto)));
 	}
 
 	@Override
@@ -69,29 +74,26 @@ public class UserServiceImplH2 implements UserService{
 	@Override
 	@Transactional
 	public boolean checkLogin(String email, String password) {
-//		for(User u : udao.findAll()) {
-//			if (u.getEmail().equals(email)) {
-//				if(u.getPassword().equals(password)) {
-//					return true;
-//				}
-//				else throw new NotAuthorizeException("Ошибка авторизации1"); //ResponseStatusException(HttpStatus.UNAUTHORIZED, "ololololo");//;
-//			}
-//			else throw new NotAuthorizeException("Ошибка авторизации");
-//		}
-		return false;
+		User u = new User();
+		u = udao.findByEmail(email).get();
+		if (u.getEmail().equals(email)) {
+			if(u.getPassword().equals(password)) {
+				return true;
+			}
+			else throw new NotAuthorizeException("Ошибка авторизации1"); //ResponseStatusException(HttpStatus.UNAUTHORIZED, "ololololo");//;
+		}
+		else throw new NotAuthorizeException("Ошибка авторизации");
+		
+	//	return false;
 	}
 
 	@Override
 	@Transactional
 	public UserDto findUserByEmail(String email) {
 		
-//		udao.find(example)
-//		for(User u : udao.findAll()) {
-//			if (u.getEmail().equals(email)) {
-//					return new UserDto(u);	
-//			}
-//		}
-		return null;
+		Optional<User> opt = udao.findByEmail(email);
+		User result = opt.isPresent() ? opt.get() : null;
+		return new UserDto(result);
 	}
 
 }

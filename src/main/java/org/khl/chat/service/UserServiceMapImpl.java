@@ -16,13 +16,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceMapImpl implements UserService {
 	
 	private static final Map<Long, User> USER_REPOSITORY_MAP = new HashMap<>();
 	private static final AtomicInteger USER_ID = new AtomicInteger();
 	
-	@Autowired
-	private UserDao udao;
+//	@Autowired
+
 //	private GenerateTokenService generateTokenService;
 //	private static final AtomicInteger SESSION_ID = new AtomicInteger();
 	
@@ -32,12 +32,12 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	@Transactional
-	public void create(UserDto userDto) {
+	public UserDto create(UserDto userDto) {
 		Long user_id = (long)USER_ID.incrementAndGet();
 		userDto.setId(user_id);
 		User user = new User(userDto);
-		udao.save(user);
 		USER_REPOSITORY_MAP.put(user_id, user);	
+		return userDto;
 	}
 
 	@Override

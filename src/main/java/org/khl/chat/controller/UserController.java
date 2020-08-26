@@ -2,8 +2,10 @@ package org.khl.chat.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.khl.chat.Session;
 import org.khl.chat.entity.User;
 import org.khl.chat.exception.NotAuthorizeException;
 import org.khl.chat.model.LoginRequestDto;
@@ -11,6 +13,7 @@ import org.khl.chat.model.UserDto;
 import org.khl.chat.service.TokenService;
 import org.khl.chat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -26,15 +29,18 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
 @RestController
+@Scope(scopeName = WebApplicationContext.SCOPE_REQUEST)
 public class UserController {
 
 	   private final UserService userService;
 	   private final TokenService tokenService;
+	   private final Session session;
 
 	   @Autowired
-	   public UserController(UserService userService, TokenService tokenService) {
+	   public UserController(@Qualifier("db") UserService userService, TokenService tokenService,  Session session) {
 	       this.userService = userService;
 	       this.tokenService = tokenService;
+	       this.session = session;
 	   }
 	   
 	   @PostMapping ("/auth")
@@ -46,13 +52,12 @@ public class UserController {
 		   else return null;
 	   }
 	   
-	   
 	   @PostMapping("/registration")
 	   @ResponseStatus(code = HttpStatus.CREATED)
 	   public UserDto create(@RequestBody @Valid UserDto user) {
 		   
-		   userService.create(user);
-		   return user;
+		   ;
+		   return userService.create(user);
 	   }
 	   
 	   @DeleteMapping("/users/{id}")
@@ -71,9 +76,8 @@ public class UserController {
 	   @GetMapping("/users/{id}")
 	   @ResponseStatus(code = HttpStatus.OK)
 	   public UserDto findById(@PathVariable(name = "id") Long id, @RequestHeader HttpHeaders headers) {
-		   String token = headers.getFirst("Authorization");
-		   if (tokenService.verificationToken(token)) return userService.findById(id);
-		   else throw new NotAuthorizeException("Ошибка авторизации");
+		   return userService.findById(id);
+
 	   }
 	   
 	   @PostMapping("/users/edit")

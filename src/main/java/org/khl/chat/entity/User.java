@@ -3,11 +3,15 @@ package org.khl.chat.entity;
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.JoinColumn; 
 
 import org.khl.chat.model.UserDto;
@@ -15,8 +19,11 @@ import org.khl.chat.model.UserDto;
 @Entity 
 public class User {
 	@Id
+    @SequenceGenerator(name = "myGen")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Long id;
 	private String name;
+	@Column (unique = true)
 	private String email;
 	private String password;
 	private String role;
