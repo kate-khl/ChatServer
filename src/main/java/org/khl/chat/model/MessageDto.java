@@ -2,17 +2,20 @@ package org.khl.chat.model;
 
 import java.util.Date;
 
+import org.khl.chat.entity.Chat;
 import org.khl.chat.entity.Message;
 import org.khl.chat.entity.User;
 
 public class MessageDto {
 	
-	private int id;
+	private Long id;
 	private String value;
-	private int authorId;
+	private Long authorId;
 	private Date date;
+	private Chat chat;
 	
-	public MessageDto(int id, String value, int authorId, Date date) {
+
+	public MessageDto(Long id, String value, Long authorId, Date date) {
 		super();
 		this.id = id;
 		this.value = value;
@@ -27,10 +30,17 @@ public class MessageDto {
 		this.date = msg.getDate();
 	}
 	
-	public int getId() {
+	public MessageDto(String value, Long authorId) {
+
+		this.value = value;
+		this.authorId = authorId;
+		this.date = new Date();
+	}
+	
+	public Long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getValue() {
@@ -39,10 +49,10 @@ public class MessageDto {
 	public void setValue(String value) {
 		this.value = value;
 	}
-	public int getAuthorId() {
+	public Long getAuthorId() {
 		return authorId;
 	}
-	public void setAuthor(int authorId) {
+	public void setAuthor(Long authorId) {
 		this.authorId = authorId;
 	}
 	public Date getDate() {
@@ -50,6 +60,16 @@ public class MessageDto {
 	}
 	public void setDate(Date date) {
 		this.date = date;
+	}
+	public void setChat(Chat chat) {
+		this.chat = chat;
+	}
+	
+	public void setAuthorId(Long authorId) {
+		this.authorId = authorId;
+	}
+	public Chat getChat() {
+		return chat;
 	}
 
 	

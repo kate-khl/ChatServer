@@ -1,6 +1,8 @@
 package org.khl.chat.model;
 
 import java.util.Collection;
+
+import org.khl.chat.entity.Chat;
 import org.khl.chat.entity.Message;
 import org.khl.chat.entity.User;
 
@@ -11,6 +13,13 @@ public class ChatDto {
 	private String name;
 	private Collection<MessageDto> messages;
 //	private User creator;
+	
+	public ChatDto(Chat chat) {
+		this.id = chat.getId();
+		this.users = chat.getUsersDto();
+		this.name = chat.getName();
+		this.messages = chat.getMessagesDto();
+	}
 
 	public int getId() {
 		return id;

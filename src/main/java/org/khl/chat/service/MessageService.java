@@ -6,7 +6,7 @@ public interface MessageService {
 
 	public void send (MessageDto msgDto);
 	
-	public void delete (int id);
+	public void delete (Long id);
 	
-	public MessageDto edit (int id, String text);
+	public MessageDto edit (Long id, String text);
 }

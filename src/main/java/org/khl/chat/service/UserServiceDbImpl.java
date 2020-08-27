@@ -6,7 +6,6 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
-import org.khl.chat.Session;
 import org.khl.chat.dao.UserDao;
 import org.khl.chat.entity.User;
 import org.khl.chat.exception.NotAuthorizeException;
@@ -22,8 +21,8 @@ public class UserServiceDbImpl implements UserService{
 	
 	@Autowired
 	private UserDao udao;
-	@Autowired
-	private Session session;
+//	@Autowired
+//	private Session session;
 	
 	@Override
 	@Transactional

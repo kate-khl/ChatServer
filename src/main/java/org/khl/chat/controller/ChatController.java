@@ -6,9 +6,11 @@ import javax.validation.Valid;
 
 import org.khl.chat.Session;
 import org.khl.chat.model.ChatDto;
+import org.khl.chat.model.CreateRequestChat;
 import org.khl.chat.model.UserDto;
 import org.khl.chat.service.ChatService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,7 +30,7 @@ public class ChatController {
 	private final Session s;
 	
 	@Autowired
-	public ChatController(ChatService chatService, Session s) {
+	public ChatController(@Qualifier("db") ChatService chatService, Session s) {
 		System.out.println("sss");
 		this.chatService = chatService;
 		this.s = s;
@@ -37,8 +39,8 @@ public class ChatController {
 	   
 	@PostMapping("/chats")
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public ChatDto create(@RequestBody @Valid ChatDto chatDto) {
-		chatService.createChat(chatDto);
+	public ChatDto create(@RequestBody @Valid CreateRequestChat createReqChat) {
+		ChatDto chatDto = chatService.createChat(createReqChat);
 		return chatDto;
 	}
 	

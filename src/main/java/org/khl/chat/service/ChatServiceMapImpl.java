@@ -11,6 +11,7 @@ import org.khl.chat.entity.Chat;
 import org.khl.chat.entity.User;
 import org.khl.chat.exception.NotFoundException;
 import org.khl.chat.model.ChatDto;
+import org.khl.chat.model.CreateRequestChat;
 import org.khl.chat.model.UserDto;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ public class ChatServiceMapImpl implements ChatService{
 	private static final AtomicInteger CHAT_ID = new AtomicInteger();
 	
 	@Override
-	public void createChat(ChatDto chatDto) {
+	public ChatDto createChat(CreateRequestChat crChat) {
 		int chat_id = CHAT_ID.incrementAndGet();
 		//Chat chat = new Chat();
 		//chat.setId(chat_id);
@@ -31,7 +32,17 @@ public class ChatServiceMapImpl implements ChatService{
 			users.add(u);
 		}*/
 		//chat.setUsers(users);
-		CHAT_REPOSITORY_MAP.put(chat_id, new Chat(chatDto));	
+		
+//		Chat c = new Chat();
+//		c.setName(crChat.getName());
+//		c.setUsers(uDto.findAllById(crChat.getUsers()));
+//		User author = uDao.findById(session.getId()).get();
+//		
+//		c.getUsers().add(author);
+//		
+//		CHAT_REPOSITORY_MAP.put(chat_id, new Chat(chatDto));	
+		
+		return null;
 	}
 
 	@Override

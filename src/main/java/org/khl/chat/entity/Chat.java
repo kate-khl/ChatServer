@@ -5,9 +5,12 @@ import java.util.Collection;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 
 import org.khl.chat.model.ChatDto;
 import org.khl.chat.model.MessageDto;
@@ -17,6 +20,8 @@ import org.khl.chat.model.UserDto;
 public class Chat {
 
 	@Id
+    @SequenceGenerator(name = "cgatGen")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private int id;
 	@ManyToMany(mappedBy = "chats")
 	private Collection<User> users;
@@ -31,7 +36,7 @@ public class Chat {
 		this.id = id;
 		this.users = users;
 		this.name = name;
-		this.messages = messages;
+//		this.messages = messages;
 	}
 	
 	public Chat(ChatDto chatDto) {
@@ -39,7 +44,7 @@ public class Chat {
 		this.id = chatDto.getId();
 		this.users = convertDtoToUsers(chatDto.getUsers());
 		this.name = chatDto.getName();
-		this.messages = convertMsgDtoToMsg(chatDto.getMessages());
+//		this.messages = convertMsgDtoToMsg(chatDto.getMessages());
 	}
 
 	
@@ -69,6 +74,14 @@ public class Chat {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	public Collection<UserDto> getUsersDto() {
+		Collection<UserDto> usersDto = new ArrayList<UserDto>();
+		for (User u : this.users)
+			usersDto.add(new UserDto(u));
+		return usersDto;
+	}
+	
 	public Collection<User> getUsers() {
 		return users;
 	}
@@ -84,6 +97,14 @@ public class Chat {
 	public Collection<Message> getMessages() {
 		return messages;
 	}
+	
+	public Collection<MessageDto> getMessagesDto() {
+		Collection<MessageDto> msgsDto = new ArrayList<MessageDto>();
+		for (Message u : this.messages)
+			msgsDto.add(new MessageDto(u));
+		return msgsDto;
+	}
+	
 	public void setMessages(Collection<Message> messages) {
 		this.messages = messages;
 	}

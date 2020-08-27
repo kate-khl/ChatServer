@@ -29,13 +29,13 @@ public class MessageController {
 	
 	@DeleteMapping ("/message/{id}")
 	@ResponseStatus(code = HttpStatus.OK)
-	public void delete (@PathVariable(name = "id") int id) {
+	public void delete (@PathVariable(name = "id") Long id) {
 		messageService.delete(id);
 	}
 	
 	@PostMapping ("/message/edit")
 	@ResponseStatus(code = HttpStatus.OK)
-	public void edit (@RequestBody String newVal, int msg_id) {
-		messageService.edit(msg_id, newVal);
+	public void edit (@RequestBody String newVal, Long msgId) {
+		messageService.edit(msgId, newVal);
 	}
 }

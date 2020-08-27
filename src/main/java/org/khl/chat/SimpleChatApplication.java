@@ -31,7 +31,7 @@ public class SimpleChatApplication {
 	      = new FilterRegistrationBean<>();
 	        
 	    registrationBean.setFilter(new AuthFilter(srv));
-	    registrationBean.addUrlPatterns("/users/*");
+	    registrationBean.addUrlPatterns("/users/*", "/chats/*");
 	    registrationBean.setOrder(0);
 	    
 	    return registrationBean;    
@@ -39,7 +39,7 @@ public class SimpleChatApplication {
 	
 	@Bean
 	@Scope(scopeName = WebApplicationContext.SCOPE_REQUEST)
-	public Session user(@Autowired HttpServletRequest req){
+	public Session userBean(@Autowired HttpServletRequest req){
 		String token = req.getHeader("Authorization");
 		return Session.fromToken(token);
 

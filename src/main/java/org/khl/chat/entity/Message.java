@@ -4,9 +4,12 @@ import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 
 import org.khl.chat.model.MessageDto;
 
@@ -14,21 +17,24 @@ import org.khl.chat.model.MessageDto;
 public class Message {
 
 	@Id
-	private int id;
+    @SequenceGenerator(name = "myGen")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	private Long id;
 	private String value;
-	private int userId;
+	private Long authorId;
 	private Date date;
 	@ManyToOne(optional = false, cascade = CascadeType.ALL)
 	@JoinColumn(name = "chat_id")
 	private Chat chat;
+
 	
 	public Message() {}
 	
-	public Message(int id, String value, int authorId, Date date) {
+	public Message(Long id, String value, Long authorId, Date date) {
 		super();
 		this.id = id;
 		this.value = value;
-		this.userId = authorId;
+		this.authorId = authorId;
 		this.date = date;
 	}
 	
@@ -36,14 +42,22 @@ public class Message {
 		super();
 		this.id = msgDto.getId();
 		this.value = msgDto.getValue();
-		this.userId = msgDto.getAuthorId();
+		this.authorId = msgDto.getAuthorId();
 		this.date = msgDto.getDate();
 	}
 	
-	public int getId() {
+	public Message(String value, Long authorId, Chat chat) {
+
+		this.value = value;
+		this.authorId = authorId;
+		this.date = new Date();
+		this.chat = chat;
+	}
+	
+	public Long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getValue() {
@@ -52,11 +66,11 @@ public class Message {
 	public void setValue(String value) {
 		this.value = value;
 	}
-	public int getAuthorId() {
-		return userId;
+	public Long getAuthorId() {
+		return authorId;
 	}
-	public void setAuthorId(int authorId) {
-		this.userId = authorId;
+	public void setAuthorId(Long authorId) {
+		this.authorId = authorId;
 	}
 	public Date getDate() {
 		return date;

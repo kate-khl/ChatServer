@@ -2,20 +2,77 @@ package org.khl.chat;
 
 import java.util.Base64;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.WebApplicationContext;
 
 import com.google.gson.Gson;
 
+//@Component
+//@Scope(scopeName = WebApplicationContext.SCOPE_REQUEST)
 public class Session {
 
 	private Long id;
 	private String name;
 	private String email;
+	
+	
+	private Session() {}
+
+//	@Autowired
+//	public Session(@Autowired HttpServletRequest req) {
+//		String token = req.getHeader("Authorization");
+//		if (token != null) {
+//			Session ss = new Session();
+//			ss = fromToken(token);
+//			
+//			this.email = ss.getEmail();
+//			this.id = ss.getId();
+//			this.name = ss.getName();
+//			this.role = ss.getRole();
+//		}
+//		
+//		
+//	}
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
 	private String role;
 	
-	@Autowired
-	public Session() {		
-	}
+
 	
 	public static Session fromToken(String token) {
 
