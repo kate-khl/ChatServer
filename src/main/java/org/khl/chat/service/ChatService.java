@@ -14,6 +14,7 @@ public interface ChatService {
 	public void removeUsers(Collection<UserDto> users, int id);
 	public Collection<UserDto> getUsers(int id);
 	public void removeChat(int id);
+	public ChatDto findChat(Long id);
 	
 	
 	

@@ -1,25 +1,34 @@
 package org.khl.chat.service;
 
+import org.khl.chat.dao.MessageDao;
+import org.khl.chat.entity.Message;
 import org.khl.chat.model.MessageDto;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class MessageServiceDbImpl implements MessageService{
 
+	@Autowired
+	private MessageDao msgDao; 
+	
 	@Override
-	public void send(MessageDto msgDto) {
-		// TODO Auto-generated method stub
+	public void send(String value, Long chatId) {
+		
+		
+		msgDao.save(new Message(msgDto));
 		
 	}
 
 	@Override
 	public void delete(Long id) {
-		// TODO Auto-generated method stub
-		
+		Message msg = msgDao.findById(id).get();
+		msg.setDeleted(true);
 	}
 
 	@Override
 	public MessageDto edit(Long id, String text) {
-		// TODO Auto-generated method stub
-		return null;
+		Message msg = msgDao.findById(id).get();
+		msg.setValue(text);
+		return new MessageDto(msg);
 	}
 	
 

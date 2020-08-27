@@ -21,20 +21,26 @@ public class Message {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Long id;
 	private String value;
-	private Long authorId;
+	
+	@ManyToOne(optional = false, cascade = CascadeType.ALL)
+	@JoinColumn(name = "autor_id")
+	private User author;
+	
 	private Date date;
+	
 	@ManyToOne(optional = false, cascade = CascadeType.ALL)
 	@JoinColumn(name = "chat_id")
 	private Chat chat;
+	private boolean deleted = false;
 
 	
 	public Message() {}
 	
-	public Message(Long id, String value, Long authorId, Date date) {
+	public Message(Long id, String value, User author, Date date) {
 		super();
 		this.id = id;
 		this.value = value;
-		this.authorId = authorId;
+		this.author = author;
 		this.date = date;
 	}
 	
@@ -42,7 +48,7 @@ public class Message {
 		super();
 		this.id = msgDto.getId();
 		this.value = msgDto.getValue();
-		this.authorId = msgDto.getAuthorId();
+		this.author = msgDto.getAuthorId();
 		this.date = msgDto.getDate();
 	}
 	
@@ -77,6 +83,22 @@ public class Message {
 	}
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public Chat getChat() {
+		return chat;
+	}
+
+	public void setChat(Chat chat) {
+		this.chat = chat;
+	}
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
 	}
 	
 }

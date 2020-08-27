@@ -30,8 +30,7 @@ public class MessageDto {
 		this.date = msg.getDate();
 	}
 	
-	public MessageDto(String value, Long authorId) {
-
+	public MessageDto(String value, Chat chat, ) {
 		this.value = value;
 		this.authorId = authorId;
 		this.date = new Date();

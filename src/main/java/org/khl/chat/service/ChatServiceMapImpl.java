@@ -90,4 +90,10 @@ public class ChatServiceMapImpl implements ChatService{
 			CHAT_REPOSITORY_MAP.remove(id);
 		} else throw new NotFoundException("Чат не найден");
 	}
+
+	@Override
+	public ChatDto findChat(Long id) {
+		
+		return new ChatDto(CHAT_REPOSITORY_MAP.get(id));
+	}
 }

@@ -31,7 +31,7 @@ public class SimpleChatApplication {
 	      = new FilterRegistrationBean<>();
 	        
 	    registrationBean.setFilter(new AuthFilter(srv));
-	    registrationBean.addUrlPatterns("/users/*", "/chats/*");
+	    registrationBean.addUrlPatterns("/users/*", "/chats/*", "/messages/*");
 	    registrationBean.setOrder(0);
 	    
 	    return registrationBean;    

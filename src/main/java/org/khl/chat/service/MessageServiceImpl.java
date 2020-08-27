@@ -21,10 +21,10 @@ public class MessageServiceImpl implements MessageService{
 //	private MessageDao mdao;
 	
 	@Override
-	public void send(MessageDto msgDto) {
-		Long msg_id = (long)MESSAGE_ID.incrementAndGet();
+	public void send(String value, Long chatId) {
+		/*Long msg_id = (long)MESSAGE_ID.incrementAndGet();
 		msgDto.setId(msg_id);
-		MESSAGE_MAP_REPOSITORY.put(msg_id, new Message(msgDto));
+		MESSAGE_MAP_REPOSITORY.put(msg_id, new Message(msgDto));*/
 	}
 
 	@Override

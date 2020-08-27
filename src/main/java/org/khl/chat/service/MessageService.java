@@ -4,7 +4,7 @@ import org.khl.chat.model.MessageDto;
 
 public interface MessageService {
 
-	public void send (MessageDto msgDto);
+	public void send (String Value, Long chatId);
 	
 	public void delete (Long id);
 	

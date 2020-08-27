@@ -63,6 +63,12 @@ public class ChatServiceDbImpl implements ChatService{
 //	}
 
 	@Override
+	public ChatDto findChat(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public void addUsers(Collection<UserDto> users, int id) {
 		// TODO Auto-generated method stub
 		

@@ -21,19 +21,19 @@ public class MessageController {
 		this.messageService = messageService;
 	}
 	
-	@PostMapping ("/message")
+	@PostMapping ("/messages")
 	@ResponseStatus(code = HttpStatus.OK)
-	public void send(@RequestBody @Valid MessageDto msgDto) {
+	public void send(@RequestBody @Valid String value, Long chatId) {
 		messageService.send(msgDto);
 	}
 	
-	@DeleteMapping ("/message/{id}")
+	@DeleteMapping ("/messages/{id}")
 	@ResponseStatus(code = HttpStatus.OK)
 	public void delete (@PathVariable(name = "id") Long id) {
 		messageService.delete(id);
 	}
 	
-	@PostMapping ("/message/edit")
+	@PostMapping ("/messages/edit")
 	@ResponseStatus(code = HttpStatus.OK)
 	public void edit (@RequestBody String newVal, Long msgId) {
 		messageService.edit(msgId, newVal);
