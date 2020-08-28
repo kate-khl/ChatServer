@@ -79,15 +79,17 @@ public class ChatServiceDbImpl implements ChatService{
 		
 		Collection<User> users = uDao.findAllById(userIds);
 		Chat chat = chDao.getOne(chatId);
-		chat.getUsers().addAll(users);
+		chat.getUsers().removeAll(users);
 		chDao.save(chat);
 		
 	}
 
 	@Override
-	public Collection<UserDto> getUsers(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Collection<UserDto> getUsers(Long chatId) {
+		Chat c = chDao.getOne(chatId);
+		ChatDto chatDao = new ChatDto(c);
+		
+		return chatDao.getUsers();
 	}
 
 	@Override
