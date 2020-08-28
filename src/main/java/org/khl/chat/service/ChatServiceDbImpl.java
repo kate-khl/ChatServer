@@ -44,50 +44,54 @@ public class ChatServiceDbImpl implements ChatService{
 		Chat c = new Chat();
 		c.setName(crChat.getName());
 		c.setUsers(uDao.findAllById(crChat.getUsers()));
+		
 		User author = uDao.findById(session.getId()).get();
 		c.getUsers().add(author);
+		c.setAuthor(author);
 		chDao.save(c);
-		Message msg = new Message(crChat.getMessage(), author.getId(), c);
+		
+		Message msg = new Message(crChat.getMessage(), author, c);
 		msgDao.save(msg);
+		
 		Collection<Message> msgList = new ArrayList<Message>();
 		msgList.add(msg);
 		c.setMessages(msgList);
 		
 		return new ChatDto(chDao.save(c));
 	}
-	
-//	private Collection<User> idUsersToList (Collection<Long> id) {
-//		Collection<User> users = uDao.findAllById(id);
-//		
-//		return usersDto;
-//	}
 
 	@Override
 	public ChatDto findChat(Long id) {
+		Chat chat = chDao.getOne(id);
+		return new ChatDto(chat);
+	}
+
+	@Override
+	public void addUsers(Collection<Long> userIds, Long chatId) {
+		Collection<User> users = uDao.findAllById(userIds);
+		Chat chat = chDao.getOne(chatId);
+		chat.getUsers().addAll(users);
+		chDao.save(chat);
+	}
+
+	@Override
+	public void removeUsers(Collection<Long> userIds, Long chatId) {
+		
+		Collection<User> users = uDao.findAllById(userIds);
+		Chat chat = chDao.getOne(chatId);
+		chat.getUsers().addAll(users);
+		chDao.save(chat);
+		
+	}
+
+	@Override
+	public Collection<UserDto> getUsers(Long id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void addUsers(Collection<UserDto> users, int id) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void removeUsers(Collection<UserDto> users, int id) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Collection<UserDto> getUsers(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void removeChat(int id) {
+	public void removeChat(Long id) {
 		// TODO Auto-generated method stub
 		
 	}

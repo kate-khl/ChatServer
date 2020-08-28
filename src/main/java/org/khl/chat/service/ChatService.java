@@ -10,10 +10,10 @@ import org.khl.chat.model.UserDto;
 public interface ChatService {
 
 	public ChatDto createChat(CreateRequestChat chat);
-	public void addUsers(Collection<UserDto> users, int id);
-	public void removeUsers(Collection<UserDto> users, int id);
-	public Collection<UserDto> getUsers(int id);
-	public void removeChat(int id);
+	public void addUsers(Collection<Long> userIds, Long id);
+	public void removeUsers(Collection<Long> userIds, Long id);
+	public Collection<Long> getUsers(Long id);
+	public void removeChat(Long id);
 	public ChatDto findChat(Long id);
 	
 	

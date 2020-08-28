@@ -3,12 +3,16 @@ package org.khl.chat.entity;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
@@ -22,28 +26,33 @@ public class Chat {
 	@Id
     @SequenceGenerator(name = "cgatGen")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
-	private int id;
-	@ManyToMany(mappedBy = "chats")
+	private Long id;
+	
+	@ManyToOne(optional = false, cascade = CascadeType.ALL)
+	@JoinColumn(name = "author_id")
+	private User author;
+
+	//	@ManyToMany(mappedBy = "chats")
+    @ManyToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(
+    		name = "users_chats",
+            joinColumns = @JoinColumn(name = "chat_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private Collection<User> users;
+    
 	private String name;
+	
 	@OneToMany(mappedBy = "chat")
 	private Collection<Message> messages;
 	
 	public Chat() {}
-	
-	public Chat(int id, Collection<User> users, String name, Collection<Message> messages) {
-		super();
-		this.id = id;
-		this.users = users;
-		this.name = name;
-//		this.messages = messages;
-	}
 	
 	public Chat(ChatDto chatDto) {
 		super();
 		this.id = chatDto.getId();
 		this.users = convertDtoToUsers(chatDto.getUsers());
 		this.name = chatDto.getName();
+		this.author = chatDto.getAuthor();
 //		this.messages = convertMsgDtoToMsg(chatDto.getMessages());
 	}
 
@@ -58,23 +67,30 @@ public class Chat {
 		return users;
 	}
 	
-	private static Collection<Message> convertMsgDtoToMsg(Collection<MessageDto> msgDto) {
-		Collection<Message> msgs = new ArrayList<Message>();  
-		
-		for (MessageDto msg : msgDto) {
-			Message m = new Message(msg);
-			msgs.add(m);
-		}
-		return msgs;
-	}
+//	private static Collection<Message> convertMsgDtoToMsg(Collection<MessageDto> msgDto) {
+//		Collection<Message> msgs = new ArrayList<Message>();  
+//		
+//		for (MessageDto msg : msgDto) {
+//			Message m = new Message(msg);
+//			msgs.add(m);
+//		}
+//		return msgs;
+//	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	
+	public User getAuthor() {
+		return author;
+	}
+	
+	public void setAuthor(User author) {
+		this.author = author;
+	}
 	public Collection<UserDto> getUsersDto() {
 		Collection<UserDto> usersDto = new ArrayList<UserDto>();
 		for (User u : this.users)

@@ -27,13 +27,13 @@ import org.springframework.web.context.WebApplicationContext;
 public class ChatController {
 
 	private final ChatService chatService;
-	private final Session s;
+//	private final Session s;
 	
 	@Autowired
-	public ChatController(@Qualifier("db") ChatService chatService, Session s) {
+	public ChatController(@Qualifier("db") ChatService chatService) {
 		System.out.println("sss");
 		this.chatService = chatService;
-		this.s = s;
+//		this.s = s;
 	}
 	
 	   
@@ -46,25 +46,25 @@ public class ChatController {
 	
 	@DeleteMapping("/chats/{id}")
 	@ResponseStatus(code = HttpStatus.OK)
-	public void remove(@PathVariable @Valid int id) {
+	public void remove(@PathVariable @Valid Long id) {
 		chatService.removeChat(id);
 	}
 	
 	@PostMapping("/chats/users")
 	@ResponseStatus(code = HttpStatus.OK)
-	public void addUsers(@RequestBody @Valid Collection <UserDto> usersDto, int chat_id) {
-		chatService.addUsers(usersDto, chat_id);
+	public void addUsers(@RequestBody @Valid Collection <Long> userIds, Long chatId) {
+		chatService.addUsers(userIds, chatId);
 	}
    
 	@PostMapping("/chats/users/remove")
 	@ResponseStatus(code = HttpStatus.OK)
-	public void removeUsers(@RequestBody @Valid Collection <UserDto> usersDto, int chat_id) {
-		chatService.removeUsers(usersDto, chat_id);
+	public void removeUsers(@RequestBody @Valid Collection <Long> userIds, Long chat_id) {
+		chatService.removeUsers(userIds, chat_id);
 	}
 	
 	@GetMapping("/chats/users/{id}")
 	@ResponseStatus(code = HttpStatus.OK)
-	public void getUsers(@PathVariable(name = "id") int chat_id) {
+	public void getUsers(@PathVariable(name = "id") Long chat_id) {
 		chatService.getUsers(chat_id);
 	}
 }

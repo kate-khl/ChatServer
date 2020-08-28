@@ -8,23 +8,24 @@ import org.khl.chat.entity.User;
 
 public class ChatDto {
 
-	private int id;
+	private Long id;
 	private Collection<UserDto> users;
 	private String name;
 	private Collection<MessageDto> messages;
-//	private User creator;
+	private User author;
 	
 	public ChatDto(Chat chat) {
 		this.id = chat.getId();
 		this.users = chat.getUsersDto();
 		this.name = chat.getName();
 		this.messages = chat.getMessagesDto();
+		this.author = chat.getAuthor();
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public Collection<UserDto> getUsers() {
@@ -45,4 +46,13 @@ public class ChatDto {
 	public void setMessages(Collection<MessageDto> messages) {
 		this.messages = messages;
 	}
+
+	public User getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(User author) {
+		this.author = author;
+	}
+	
 }

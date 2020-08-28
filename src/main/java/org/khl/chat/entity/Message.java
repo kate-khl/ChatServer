@@ -48,14 +48,14 @@ public class Message {
 		super();
 		this.id = msgDto.getId();
 		this.value = msgDto.getValue();
-		this.author = msgDto.getAuthorId();
+		this.author = new User(msgDto.getAuthor());
 		this.date = msgDto.getDate();
 	}
 	
-	public Message(String value, Long authorId, Chat chat) {
+	public Message(String value, User author, Chat chat) {
 
 		this.value = value;
-		this.authorId = authorId;
+		this.author = author;
 		this.date = new Date();
 		this.chat = chat;
 	}
@@ -72,11 +72,11 @@ public class Message {
 	public void setValue(String value) {
 		this.value = value;
 	}
-	public Long getAuthorId() {
-		return authorId;
+	public User getAuthor() {
+		return author;
 	}
-	public void setAuthorId(Long authorId) {
-		this.authorId = authorId;
+	public void setAuthor(User author) {
+		this.author = author;
 	}
 	public Date getDate() {
 		return date;

@@ -27,13 +27,13 @@ public class User {
 	private String email;
 	private String password;
 	private String role;
-
 	
-    @ManyToMany//(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(
-    		name = "users_chats",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "chat_id"))
+//    @ManyToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @JoinTable(
+//    		name = "users_chats",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "chat_id"))
+	@ManyToMany(mappedBy = "users")
 	private Collection<Chat> chats;
 	
 	

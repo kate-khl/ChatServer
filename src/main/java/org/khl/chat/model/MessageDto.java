@@ -10,30 +10,31 @@ public class MessageDto {
 	
 	private Long id;
 	private String value;
-	private Long authorId;
+	private UserDto author;
 	private Date date;
-	private Chat chat;
+	private ChatDto chat;
 	
 
-	public MessageDto(Long id, String value, Long authorId, Date date) {
+	public MessageDto(Long id, String value, UserDto author, Date date) {
 		super();
 		this.id = id;
 		this.value = value;
-		this.authorId = authorId;
+		this.author = author;
 		this.date = date;
 	}
 	
 	public MessageDto(Message msg) {
 		this.id = msg.getId();
 		this.value = msg.getValue();
-		this.authorId = msg.getAuthorId();
+		this.author = new UserDto(msg.getAuthor());
 		this.date = msg.getDate();
 	}
 	
-	public MessageDto(String value, Chat chat, ) {
+	public MessageDto(String value, ChatDto chatDto, UserDto authorDto) {
 		this.value = value;
-		this.authorId = authorId;
+		this.author = authorDto;
 		this.date = new Date();
+		this.chat = chatDto;
 	}
 	
 	public Long getId() {
@@ -48,11 +49,11 @@ public class MessageDto {
 	public void setValue(String value) {
 		this.value = value;
 	}
-	public Long getAuthorId() {
-		return authorId;
+	public UserDto getAuthor() {
+		return author;
 	}
-	public void setAuthor(Long authorId) {
-		this.authorId = authorId;
+	public void setAuthor(UserDto author) {
+		this.author = author;
 	}
 	public Date getDate() {
 		return date;
@@ -60,14 +61,11 @@ public class MessageDto {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	public void setChat(Chat chat) {
+	public void setChat(ChatDto chat) {
 		this.chat = chat;
 	}
-	
-	public void setAuthorId(Long authorId) {
-		this.authorId = authorId;
-	}
-	public Chat getChat() {
+
+	public ChatDto getChat() {
 		return chat;
 	}
 
