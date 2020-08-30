@@ -88,11 +88,11 @@ public class User {
 		this.role = role;
 	}
 	
-//	public Collection<Chat> getChats() {
-//		return chats;
-//	}
-//	
-//	public void setChats(Collection<Chat> chats) {
-//		this.chats = chats;
-//	}
+	public Collection<Chat> getChats() {
+		return chats;
+	}
+	
+	public void setChats(Collection<Chat> chats) {
+		this.chats = chats;
+	}
 }

@@ -5,6 +5,7 @@ import java.util.Collection;
 import org.khl.chat.entity.Chat;
 import org.khl.chat.model.ChatDto;
 import org.khl.chat.model.CreateRequestChat;
+import org.khl.chat.model.MessageDto;
 import org.khl.chat.model.UserDto;
 
 public interface ChatService {
@@ -15,6 +16,7 @@ public interface ChatService {
 	public Collection<UserDto> getUsers(Long id);
 	public void removeChat(Long id);
 	public ChatDto findChat(Long id);
+	public Collection<MessageDto> getMessages(Long chatId);
 	
 	
 	

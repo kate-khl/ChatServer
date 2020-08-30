@@ -12,6 +12,7 @@ import org.khl.chat.dao.UserDao;
 import org.khl.chat.entity.Chat;
 import org.khl.chat.entity.Message;
 import org.khl.chat.entity.User;
+import org.khl.chat.exception.AccessControlException;
 import org.khl.chat.model.ChatDto;
 import org.khl.chat.model.CreateRequestChat;
 import org.khl.chat.model.MessageDto;
@@ -94,8 +95,19 @@ public class ChatServiceDbImpl implements ChatService{
 
 	@Override
 	public void removeChat(Long id) {
-		// TODO Auto-generated method stub
+		Chat c = chDao.getOne(id);
+		if(c.getAuthor().getId().equals(session.getId())) {
+			chDao.delete(c);
+		} else 
+		throw new AccessControlException();
 		
 	}
+	
+	@Override
+	public Collection<MessageDto> getMessages(Long chatId){
+		Collection<MessageDto> msgs = chDao.findById(chatId).get().getMessagesDto();
+		return msgs;
+	}
+	
 
 }

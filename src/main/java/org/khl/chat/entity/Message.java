@@ -31,7 +31,7 @@ public class Message {
 	@ManyToOne(optional = false, cascade = CascadeType.ALL)
 	@JoinColumn(name = "chat_id")
 	private Chat chat;
-	private boolean deleted = false;
+//	private boolean deleted = false;
 
 	
 	public Message() {}
@@ -91,14 +91,6 @@ public class Message {
 
 	public void setChat(Chat chat) {
 		this.chat = chat;
-	}
-
-	public boolean isDeleted() {
-		return deleted;
-	}
-
-	public void setDeleted(boolean deleted) {
-		this.deleted = deleted;
 	}
 	
 }

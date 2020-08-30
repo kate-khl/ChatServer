@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.khl.chat.controller.AuthFilter;
 import org.khl.chat.model.UserDto;
 import org.khl.chat.service.TokenService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -45,6 +46,10 @@ public class SimpleChatApplication {
 
 	}
 	
+	@Bean
+	public ModelMapper modelMapper() {
+	    return new ModelMapper();
+	}
 	
 	
 

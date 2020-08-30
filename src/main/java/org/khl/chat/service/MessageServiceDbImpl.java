@@ -47,8 +47,7 @@ public class MessageServiceDbImpl implements MessageService{
 		
 		Message msg = msgDao.findById(id).get();
 		if(msg.getAuthor().getId().equals(session.getId())) {
-			msg.setDeleted(true);
-			msgDao.save(msg);
+			msgDao.delete(msg);
 		} else 
 			throw new AccessControlException();
 	}

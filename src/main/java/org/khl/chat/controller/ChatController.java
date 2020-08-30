@@ -36,7 +36,6 @@ public class ChatController {
 //		this.s = s;
 	}
 	
-	   
 	@PostMapping("/chats")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public ChatDto create(@RequestBody @Valid CreateRequestChat createReqChat) {
@@ -50,21 +49,22 @@ public class ChatController {
 		chatService.removeChat(id);
 	}
 	
-	@PostMapping("/chats/users")
+	@PostMapping("/chats/{id}/users")
 	@ResponseStatus(code = HttpStatus.OK)
-	public void addUsers(@RequestBody @Valid Collection <Long> userIds, Long chatId) {
+	public void addUsers(@RequestBody @Valid Collection <Long> userIds, @PathVariable(name = "id") Long chatId) {
 		chatService.addUsers(userIds, chatId);
 	}
    
-	@PostMapping("/chats/users/remove")
+	@DeleteMapping("/chats/{id}/users")
 	@ResponseStatus(code = HttpStatus.OK)
-	public void removeUsers(@RequestBody @Valid Collection <Long> userIds, Long chat_id) {
+	public void removeUsers(@RequestBody @Valid Collection <Long> userIds, @PathVariable(name = "id") Long chat_id) {
 		chatService.removeUsers(userIds, chat_id);
 	}
 	
-	@GetMapping("/chats/users/{id}")
+	@GetMapping("/chats/{id}/users")
 	@ResponseStatus(code = HttpStatus.OK)
-	public void getUsers(@PathVariable(name = "id") Long chat_id) {
-		chatService.getUsers(chat_id);
+	public Collection<UserDto> getUsers(@PathVariable(name = "id") Long chat_id) {
+		return chatService.getUsers(chat_id);
 	}
+	
 }

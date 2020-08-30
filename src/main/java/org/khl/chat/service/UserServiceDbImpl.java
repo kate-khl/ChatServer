@@ -1,14 +1,17 @@
 package org.khl.chat.service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
 
 import org.khl.chat.dao.UserDao;
+import org.khl.chat.entity.Chat;
 import org.khl.chat.entity.User;
 import org.khl.chat.exception.NotAuthorizeException;
+import org.khl.chat.model.ChatDto;
 import org.khl.chat.model.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -95,6 +98,21 @@ public class UserServiceDbImpl implements UserService{
 		Optional<User> opt = udao.findByEmail(email);
 		User result = opt.isPresent() ? opt.get() : null;
 		return new UserDto(result);
+	}
+
+	@Override
+	public Collection<ChatDto> getChats(Long userId) {
+		User u = udao.findById(userId).get();
+		Collection chDtoList = this.toChatDtoColl(u.getChats());
+		return chDtoList;
+	}
+	
+	private Collection<ChatDto> toChatDtoColl(Collection<Chat> chatList){
+		Collection<ChatDto> chDtoList = new ArrayList<ChatDto>();
+		for (Chat chat : chatList) {
+			chDtoList.add(new ChatDto(chat));
+		}
+		return chDtoList;
 	}
 
 }
