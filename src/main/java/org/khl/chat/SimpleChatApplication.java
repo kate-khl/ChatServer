@@ -5,9 +5,14 @@ import java.util.Base64;
 import javax.servlet.http.HttpServletRequest;
 
 import org.khl.chat.controller.AuthFilter;
-import org.khl.chat.model.UserDto;
+import org.khl.chat.dto.UserDto;
+import org.khl.chat.entity.User;
 import org.khl.chat.service.TokenService;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
+import org.modelmapper.TypeMap;
+import org.modelmapper.config.Configuration.AccessLevel;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -48,9 +53,26 @@ public class SimpleChatApplication {
 	
 	@Bean
 	public ModelMapper modelMapper() {
-	    return new ModelMapper();
+	   ModelMapper mapper = new ModelMapper();
+	   
+	   	TypeMap<User, UserDto> tm = mapper.createTypeMap(User.class, UserDto.class); //.addMapping(User::getPassword, UserDto::setPassword);
+	   	tm.addMappings(skipModifiedFieldsMap);
+	   	
+       mapper.getConfiguration()
+	       .setMatchingStrategy(MatchingStrategies.STRICT)
+	       .setFieldMatchingEnabled(true)
+	       .setSkipNullEnabled(true)
+	       .setFieldAccessLevel(AccessLevel.PRIVATE);
+       
+
+       return mapper;
 	}
 	
-	
+	private PropertyMap<User, UserDto> skipModifiedFieldsMap = new PropertyMap<User, UserDto>() {
+		 protected void configure() {
+			 skip().setPassword(null);
+		 }
+	};
+
 
 }

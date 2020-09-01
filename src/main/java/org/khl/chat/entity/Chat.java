@@ -16,9 +16,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
-import org.khl.chat.model.ChatDto;
-import org.khl.chat.model.MessageDto;
-import org.khl.chat.model.UserDto;
+import org.khl.chat.dto.ChatDto;
+import org.khl.chat.dto.MessageDto;
+import org.khl.chat.dto.UserDto;
 
 @Entity
 public class Chat {
@@ -47,25 +47,25 @@ public class Chat {
 	
 	public Chat() {}
 	
-	public Chat(ChatDto chatDto) {
-		super();
-		this.id = chatDto.getId();
-		this.users = convertDtoToUsers(chatDto.getUsers());
-		this.name = chatDto.getName();
-		this.author = chatDto.getAuthor();
+//	public Chat(ChatDto chatDto) {
+//		super();
+//		this.id = chatDto.getId();
+//		this.users = convertDtoToUsers(chatDto.getUsers());
+//		this.name = chatDto.getName();
+//		this.author = chatDto.getAuthor();
 //		this.messages = convertMsgDtoToMsg(chatDto.getMessages());
-	}
+//	}
 
 	
-	private static Collection<User> convertDtoToUsers(Collection<UserDto> usersDto) {
-		Collection<User> users = new ArrayList<User>();  
-		
-		for (UserDto user : usersDto) {
-			User u = new User(user);
-			users.add(u);
-		}
-		return users;
-	}
+//	private static Collection<User> convertDtoToUsers(Collection<UserDto> usersDto) {
+//		Collection<User> users = new ArrayList<User>();  
+//		
+//		for (UserDto user : usersDto) {
+//			User u = new User(user);
+//			users.add(u);
+//		}
+//		return users;
+//	}
 	
 //	private static Collection<Message> convertMsgDtoToMsg(Collection<MessageDto> msgDto) {
 //		Collection<Message> msgs = new ArrayList<Message>();  
@@ -91,12 +91,12 @@ public class Chat {
 	public void setAuthor(User author) {
 		this.author = author;
 	}
-	public Collection<UserDto> getUsersDto() {
-		Collection<UserDto> usersDto = new ArrayList<UserDto>();
-		for (User u : this.users)
-			usersDto.add(new UserDto(u));
-		return usersDto;
-	}
+//	public Collection<UserDto> getUsersDto() {
+//		Collection<UserDto> usersDto = new ArrayList<UserDto>();
+//		for (User u : this.users)
+//			usersDto.add(new UserDto(u));
+//		return usersDto;
+//	}
 	
 	public Collection<User> getUsers() {
 		return users;
@@ -114,12 +114,12 @@ public class Chat {
 		return messages;
 	}
 	
-	public Collection<MessageDto> getMessagesDto() {
-		Collection<MessageDto> msgsDto = new ArrayList<MessageDto>();
-		for (Message u : this.messages)
-			msgsDto.add(new MessageDto(u));
-		return msgsDto;
-	}
+//	public Collection<MessageDto> getMessagesDto() {
+//		Collection<MessageDto> msgsDto = new ArrayList<MessageDto>();
+//		for (Message u : this.messages)
+//			msgsDto.add(new MessageDto(u));
+//		return msgsDto;
+//	}
 	
 	public void setMessages(Collection<Message> messages) {
 		this.messages = messages;

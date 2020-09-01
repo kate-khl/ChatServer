@@ -3,17 +3,17 @@ package org.khl.chat.service;
 import java.util.Collection;
 import java.util.List;
 
+import org.khl.chat.dto.ChatDto;
+import org.khl.chat.dto.UserDto;
 import org.khl.chat.entity.Chat;
 import org.khl.chat.entity.User;
-import org.khl.chat.model.ChatDto;
-import org.khl.chat.model.UserDto;
 
 public interface UserService {
 
 
 	   UserDto create(UserDto userDto);
 	   
-	   List<UserDto> readAll();
+	   Collection<UserDto> getAllUsers();
 	   
 	   UserDto findById(Long id);
 	   
@@ -26,4 +26,6 @@ public interface UserService {
 	   UserDto findUserByEmail (String Email);
 	   
 	   public Collection<ChatDto> getChats(Long userId);
+	   
+	   public Collection<UserDto> getUsers(Long chatId);
 }

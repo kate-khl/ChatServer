@@ -1,4 +1,4 @@
-package org.khl.chat.model;
+package org.khl.chat.dto;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -22,6 +22,7 @@ public class UserDto {
 	@NotBlank @NotNull 
 	private String  role;
 	
+	
 	public UserDto() {}
 			
 	public UserDto(Long id, String name, String email, String password, String role) {
@@ -34,13 +35,14 @@ public class UserDto {
 	}
 
 
-	public UserDto(User u) {
-		this.id = u.getId();
-		this.name = u.getName();
-		this.email = u.getEmail();
-		this.password = u.getPassword();
-		this.role = u.getRole();
-	}
+//	public UserDto(User u) {
+//		this.id = u.getId();
+//		this.name = u.getName();
+//		this.email = u.getEmail();
+//		this.password = u.getPassword();
+//		this.role = u.getRole();
+//	}
+	
 	public Long getId() {
 		return id;
 	}

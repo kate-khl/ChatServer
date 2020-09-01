@@ -5,10 +5,11 @@ import java.util.Collection;
 import javax.validation.Valid;
 
 import org.khl.chat.Session;
-import org.khl.chat.model.ChatDto;
-import org.khl.chat.model.CreateRequestChat;
-import org.khl.chat.model.UserDto;
+import org.khl.chat.dto.ChatDto;
+import org.khl.chat.dto.CreateRequestChat;
+import org.khl.chat.dto.UserDto;
 import org.khl.chat.service.ChatService;
+import org.khl.chat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
@@ -27,12 +28,14 @@ import org.springframework.web.context.WebApplicationContext;
 public class ChatController {
 
 	private final ChatService chatService;
+	private final UserService userService;
 //	private final Session s;
 	
 	@Autowired
-	public ChatController(@Qualifier("db") ChatService chatService) {
+	public ChatController(@Qualifier("db") ChatService chatService, UserService userService) {
 		System.out.println("sss");
 		this.chatService = chatService;
+		this.userService = userService;
 //		this.s = s;
 	}
 	
@@ -64,7 +67,7 @@ public class ChatController {
 	@GetMapping("/chats/{id}/users")
 	@ResponseStatus(code = HttpStatus.OK)
 	public Collection<UserDto> getUsers(@PathVariable(name = "id") Long chat_id) {
-		return chatService.getUsers(chat_id);
+		return userService.getUsers(chat_id);
 	}
 	
 }

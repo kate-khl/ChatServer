@@ -9,14 +9,16 @@ import org.khl.chat.Session;
 import org.khl.chat.dao.ChatDao;
 import org.khl.chat.dao.MessageDao;
 import org.khl.chat.dao.UserDao;
+import org.khl.chat.dto.ChatDto;
+import org.khl.chat.dto.CreateRequestChat;
+import org.khl.chat.dto.MessageDto;
+import org.khl.chat.dto.UserDto;
 import org.khl.chat.entity.Chat;
 import org.khl.chat.entity.Message;
 import org.khl.chat.entity.User;
 import org.khl.chat.exception.AccessControlException;
-import org.khl.chat.model.ChatDto;
-import org.khl.chat.model.CreateRequestChat;
-import org.khl.chat.model.MessageDto;
-import org.khl.chat.model.UserDto;
+import org.khl.chat.mapper.UserListConverter;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
@@ -38,6 +40,10 @@ public class ChatServiceDbImpl implements ChatService{
 	private MessageDao msgDao;
 	@Autowired
 	private Session session;
+	@Autowired
+	private ModelMapper mapper;
+	@Autowired
+	private UserListConverter userListConverter;
 	
 	@Override
 	public ChatDto createChat(CreateRequestChat crChat) {
@@ -51,20 +57,15 @@ public class ChatServiceDbImpl implements ChatService{
 		c.setAuthor(author);
 		chDao.save(c);
 		
-		Message msg = new Message(crChat.getMessage(), author, c);
-		msgDao.save(msg);
-		
-		Collection<Message> msgList = new ArrayList<Message>();
-		msgList.add(msg);
-		c.setMessages(msgList);
-		
-		return new ChatDto(chDao.save(c));
+		msgDao.save(new Message(crChat.getMessage(), author, c));
+		chDao.save(c);
+		return mapper.map(c, ChatDto.class);//new ChatDto(chDao.save(c));
 	}
 
 	@Override
 	public ChatDto findChat(Long id) {
 		Chat chat = chDao.getOne(id);
-		return new ChatDto(chat);
+		return mapper.map(chat, ChatDto.class);
 	}
 
 	@Override
@@ -82,16 +83,8 @@ public class ChatServiceDbImpl implements ChatService{
 		Chat chat = chDao.getOne(chatId);
 		chat.getUsers().removeAll(users);
 		chDao.save(chat);
-		
 	}
 
-	@Override
-	public Collection<UserDto> getUsers(Long chatId) {
-		Chat c = chDao.getOne(chatId);
-		ChatDto chatDao = new ChatDto(c);
-		
-		return chatDao.getUsers();
-	}
 
 	@Override
 	public void removeChat(Long id) {
@@ -100,14 +93,14 @@ public class ChatServiceDbImpl implements ChatService{
 			chDao.delete(c);
 		} else 
 		throw new AccessControlException();
-		
 	}
 	
-	@Override
-	public Collection<MessageDto> getMessages(Long chatId){
-		Collection<MessageDto> msgs = chDao.findById(chatId).get().getMessagesDto();
-		return msgs;
-	}
 	
+//	private Collection<UserDto> toUserDtoList(Collection<User> users) {
+//		Collection<UserDto> userDtoList = new ArrayList<UserDto>();
+//		for (User u : users)
+//			userDtoList.add(new UserDto(u));
+//		return userDtoList;
+//	}
 
 }

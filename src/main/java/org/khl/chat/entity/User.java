@@ -12,9 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
-import javax.persistence.JoinColumn; 
 
-import org.khl.chat.model.UserDto;
+import org.khl.chat.dto.UserDto;
+
+import javax.persistence.JoinColumn;
 
 @Entity 
 public class User {
@@ -23,21 +24,15 @@ public class User {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Long id;
 	private String name;
+	
 	@Column (unique = true)
 	private String email;
 	private String password;
 	private String role;
 	
-//    @ManyToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    @JoinTable(
-//    		name = "users_chats",
-//            joinColumns = @JoinColumn(name = "user_id"),
-//            inverseJoinColumns = @JoinColumn(name = "chat_id"))
 	@ManyToMany(mappedBy = "users")
 	private Collection<Chat> chats;
 	
-	
-
 	public User () {};
 	
 	public User(Long id, String name, String email, String password, String role) {

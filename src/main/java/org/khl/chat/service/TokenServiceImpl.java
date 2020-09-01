@@ -3,7 +3,7 @@ package org.khl.chat.service;
 import java.time.Instant;
 import java.util.Date;
 
-import org.khl.chat.model.UserDto;
+import org.khl.chat.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;

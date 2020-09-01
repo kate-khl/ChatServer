@@ -1,7 +1,9 @@
 package org.khl.chat.service;
 
-import org.khl.chat.model.MessageDto;
-import org.khl.chat.model.SendMessageRequest;
+import java.util.Collection;
+
+import org.khl.chat.dto.MessageDto;
+import org.khl.chat.dto.SendMessageRequest;
 
 public interface MessageService {
 
@@ -10,4 +12,6 @@ public interface MessageService {
 	public void delete (Long id);
 	
 	public MessageDto edit (Long id, String text);
+	
+	public Collection<MessageDto> getMessages (Long id);
 }

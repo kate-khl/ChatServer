@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
-import org.khl.chat.model.MessageDto;
+import org.khl.chat.dto.MessageDto;
 
 @Entity
 public class Message {

@@ -1,6 +1,6 @@
 package org.khl.chat.service;
 
-import org.khl.chat.model.UserDto;
+import org.khl.chat.dto.UserDto;
 
 public interface TokenService {
 

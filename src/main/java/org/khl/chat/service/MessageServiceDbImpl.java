@@ -1,17 +1,24 @@
 package org.khl.chat.service;
 
 import org.khl.chat.exception.AccessControlException;
+import org.khl.chat.mapper.MessageMapper;
+import org.khl.chat.mapper.UserMapper;
+
+import java.util.Collection;
+
+import javax.annotation.PostConstruct;
+
 import org.khl.chat.Session;
 import org.khl.chat.dao.ChatDao;
 import org.khl.chat.dao.MessageDao;
 import org.khl.chat.dao.UserDao;
+import org.khl.chat.dto.ChatDto;
+import org.khl.chat.dto.MessageDto;
+import org.khl.chat.dto.SendMessageRequest;
+import org.khl.chat.dto.UserDto;
 import org.khl.chat.entity.Chat;
 import org.khl.chat.entity.Message;
 import org.khl.chat.entity.User;
-import org.khl.chat.model.ChatDto;
-import org.khl.chat.model.MessageDto;
-import org.khl.chat.model.SendMessageRequest;
-import org.khl.chat.model.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
@@ -31,6 +38,8 @@ public class MessageServiceDbImpl implements MessageService{
 	private UserDao uDao; 
 	@Autowired
 	private Session session;
+	@Autowired
+	private  MessageMapper messageMapper;
 	
 	@Override
 	public void send(SendMessageRequest smReq, Long chatId) {
@@ -58,10 +67,17 @@ public class MessageServiceDbImpl implements MessageService{
 		Message msg = msgDao.findById(id).get();
 		if(msg.getAuthor().getId().equals(session.getId())) {
 			msg.setValue(text);
-			return new MessageDto(msgDao.save(msg));
+			msgDao.save(msg);
+			return messageMapper.toDto(msg);
 		} else 
 			throw new AccessControlException();
 	}
 	
+	@Override
+	public Collection<MessageDto> getMessages(Long chatId){
+		Collection<Message> msgs = chDao.findById(chatId).get().getMessages();
+		Collection<MessageDto> msgDtos = messageMapper.toListOfDto(msgs);
+		return msgDtos;
+	}
 
 }

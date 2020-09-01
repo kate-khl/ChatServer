@@ -1,17 +1,19 @@
 package org.khl.chat.controller;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.khl.chat.Session;
+import org.khl.chat.dto.LoginRequestDto;
+import org.khl.chat.dto.UserDto;
 import org.khl.chat.entity.User;
 import org.khl.chat.exception.NotAuthorizeException;
-import org.khl.chat.model.LoginRequestDto;
-import org.khl.chat.model.UserDto;
 import org.khl.chat.service.TokenService;
 import org.khl.chat.service.UserService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
@@ -29,18 +31,22 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.sun.el.parser.ParseException;
+
 @RestController
 @Scope(scopeName = WebApplicationContext.SCOPE_REQUEST)
 public class UserController {
 
 	   private final UserService userService;
 	   private final TokenService tokenService;
+	   private final ModelMapper modelMapper;
 //	   private final Session session;
 
 	   @Autowired
-	   public UserController(@Qualifier("db") UserService userService, TokenService tokenService) {
+	   public UserController(@Qualifier("db") UserService userService, TokenService tokenService, ModelMapper modelMapper) {
 	       this.userService = userService;
 	       this.tokenService = tokenService;
+	       this.modelMapper = modelMapper;
 //	       this.session = session;
 	   }
 	   
@@ -70,14 +76,17 @@ public class UserController {
 	   
 	   @GetMapping("/users/list")
 	   @ResponseStatus(code = HttpStatus.OK)
-	   public List<UserDto> readAll() {
-		   return userService.readAll();
+	   public Collection<UserDto> readAll() {
+		   return userService.getAllUsers();
 	   }
 	   
 	   @GetMapping("/users/{id}")
 	   @ResponseStatus(code = HttpStatus.OK)
 	   public UserDto findById(@PathVariable(name = "id") Long id, @RequestHeader HttpHeaders headers) {
-		   return userService.findById(id);
+		   
+		   UserDto u = userService.findById(id);
+		   
+		   return u;
 
 	   }
 	   
@@ -87,6 +96,5 @@ public class UserController {
 		   userService.edit(user);
 		   return userService.findById(user.getId());
 	   }
-	   
 	   
 }

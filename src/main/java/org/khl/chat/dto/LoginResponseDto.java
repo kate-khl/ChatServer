@@ -1,4 +1,4 @@
-package org.khl.chat.model;
+package org.khl.chat.dto;
 
 public class LoginResponseDto {
 	

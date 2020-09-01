@@ -1,4 +1,4 @@
-package org.khl.chat.model;
+package org.khl.chat.dto;
 
 import java.util.Date;
 
@@ -23,12 +23,12 @@ public class MessageDto {
 		this.date = date;
 	}
 	
-	public MessageDto(Message msg) {
-		this.id = msg.getId();
-		this.value = msg.getValue();
-		this.author = new UserDto(msg.getAuthor());
-		this.date = msg.getDate();
-	}
+//	public MessageDto(Message msg) {
+//		this.id = msg.getId();
+//		this.value = msg.getValue();
+//		this.author = new UserDto(msg.getAuthor());
+//		this.date = msg.getDate();
+//	}
 	
 	public MessageDto(String value, ChatDto chatDto, UserDto authorDto) {
 		this.value = value;
