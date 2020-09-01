@@ -79,5 +79,27 @@ public class MessageServiceDbImpl implements MessageService{
 		Collection<MessageDto> msgDtos = messageMapper.toListOfDto(msgs);
 		return msgDtos;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
 
 }

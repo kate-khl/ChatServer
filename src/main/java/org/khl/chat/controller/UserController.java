@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
@@ -39,14 +40,12 @@ public class UserController {
 
 	   private final UserService userService;
 	   private final TokenService tokenService;
-	   private final ModelMapper modelMapper;
 //	   private final Session session;
 
 	   @Autowired
-	   public UserController(@Qualifier("db") UserService userService, TokenService tokenService, ModelMapper modelMapper) {
+	   public UserController(@Qualifier("db") UserService userService, TokenService tokenService) {
 	       this.userService = userService;
 	       this.tokenService = tokenService;
-	       this.modelMapper = modelMapper;
 //	       this.session = session;
 	   }
 	   
@@ -82,14 +81,10 @@ public class UserController {
 	   
 	   @GetMapping("/users/{id}")
 	   @ResponseStatus(code = HttpStatus.OK)
-	   public UserDto findById(@PathVariable(name = "id") Long id, @RequestHeader HttpHeaders headers) {
-		   
-		   UserDto u = userService.findById(id);
-		   
+	   public UserDto findById(@PathVariable(name = "id") Long id, @RequestHeader HttpHeaders headers) {		   
+		   UserDto u = userService.findById(id);		   
 		   return u;
-
-	   }
-	   
+	   }	   
 	   @PatchMapping("/users/{id}")
 	   @ResponseStatus(code = HttpStatus.OK)
 	   public UserDto edit(@RequestBody @Valid User user, @PathVariable(name = "id") Long userId) {
@@ -97,4 +92,14 @@ public class UserController {
 		   return userService.findById(user.getId());
 	   }
 	   
+		@GetMapping("/users/chats/{id}")
+		@ResponseStatus(code = HttpStatus.OK)
+		public Collection<UserDto> getUsers(@PathVariable(name = "id") Long chat_id) {
+			return userService.getUsers(chat_id);
+		}
+		
+		@GetMapping("/users")
+		@ResponseStatus(code = HttpStatus.OK)
+		public void find(@RequestParam(required = false) String name, @RequestParam(required = false) String email) {
+			}
 }

@@ -63,11 +63,6 @@ public class ChatController {
 	public void removeUsers(@RequestBody @Valid Collection <Long> userIds, @PathVariable(name = "id") Long chat_id) {
 		chatService.removeUsers(userIds, chat_id);
 	}
-	
-	@GetMapping("/chats/{id}/users")
-	@ResponseStatus(code = HttpStatus.OK)
-	public Collection<UserDto> getUsers(@PathVariable(name = "id") Long chat_id) {
-		return userService.getUsers(chat_id);
-	}
+
 	
 }

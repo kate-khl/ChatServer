@@ -58,12 +58,14 @@ public class SimpleChatApplication {
 	   	TypeMap<User, UserDto> tm = mapper.createTypeMap(User.class, UserDto.class); //.addMapping(User::getPassword, UserDto::setPassword);
 	   	tm.addMappings(skipModifiedFieldsMap);
 	   	
+	   	tm.addMappings(m -> m.skip(UserDto::setPassword));
+	   	
+	   	
        mapper.getConfiguration()
 	       .setMatchingStrategy(MatchingStrategies.STRICT)
 	       .setFieldMatchingEnabled(true)
 	       .setSkipNullEnabled(true)
 	       .setFieldAccessLevel(AccessLevel.PRIVATE);
-       
 
        return mapper;
 	}
@@ -74,5 +76,36 @@ public class SimpleChatApplication {
 		 }
 	};
 
+	
+//	interface A{
+//		String gg(int g);
+//	}
+//	
+//	public static void main(String[] args) {
+//		method(new A() {
+//			@Override
+//			public String gg(int g) {
+//				return "n:" + g;
+//			}
+//			
+//		});
+//		
+//		method((arg) -> "n:" + arg);
+//		
+//		method((arg) -> {
+//			return "n:" + arg;
+//		});
+//		
+//		method(MessageServiceDbImpl::hh);
+//		
+//	}
+//	
+//	static String hh(int gg) {
+//		return "n:" + gg;
+//	}
+//	
+//	static void method(A a) {
+//		System.out.println(a.gg(90));
+//	}
 
 }
