@@ -13,5 +13,5 @@ public interface MessageService {
 	
 	public MessageDto edit (Long id, String text);
 	
-	public Collection<MessageDto> getMessages (Long id);
+	public Collection<MessageDto> getMessages (Long id, int page, int size);
 }

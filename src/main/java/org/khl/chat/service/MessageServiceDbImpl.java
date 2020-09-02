@@ -77,10 +77,14 @@ public class MessageServiceDbImpl implements MessageService{
 	}
 	
 	@Override
-	public Collection<MessageDto> getMessages(Long chatId){
+	public Collection<MessageDto> getMessages(Long chatId, int page, int size){
 		
 	//	Pageable page = new PageRequest(0, 10, Sort.Direction.Asc, "firstName")
-		Collection<Message> msgs = chDao.findById(chatId).get().getMessages();
+	//	Collection<Message> msgs = chDao.findById(chatId).get().getMessages();
+		
+		Pageable psgeParams = PageRequest.of(page, size);
+		
+		Collection<Message> msgs = msgDao.findMessageByChats_IdContaining(chatId, psgeParams);
 		Collection<MessageDto> msgDtos = messageMapper.toListOfDto(msgs);
 		return msgDtos;
 	}

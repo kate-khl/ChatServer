@@ -17,6 +17,9 @@ import org.khl.chat.exception.NotAuthorizeException;
 import org.khl.chat.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -43,16 +46,12 @@ public class UserServiceDbImpl implements UserService{
 
 	@Override
 	@Transactional
-	public Collection<UserDto> getAllUsers() {
-		ArrayList<UserDto> userDtoList = new ArrayList<>();
+	public Collection<UserDto> getAllUsers(int page, int size) {
 		
-		Collection<User> users = uDao.findAll();
+		Pageable psgeParams = PageRequest.of(page, size);
+		Page<User> users = uDao.findAll(psgeParams);
 		
-//		for (User u : uDao.findAll()){
-//			UserDto uDto = new UserDto(u.getId(), u.getName(), u.getEmail(), null, u.getRole());
-//			userDtoList.add(uDto);
-//		}
-		return userMapper.toListOfDto(users);
+		return userMapper.toListOfDto(users.getContent());
 	}
 
 	@Override

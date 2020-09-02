@@ -75,8 +75,8 @@ public class UserController {
 	   
 	   @GetMapping("/users/list")
 	   @ResponseStatus(code = HttpStatus.OK)
-	   public Collection<UserDto> readAll() {
-		   return userService.getAllUsers();
+	   public Collection<UserDto> readAll(@RequestParam int page, @RequestParam int size) {
+		   return userService.getAllUsers(page, size);
 	   }
 	   
 	   @GetMapping("/users/{id}")
