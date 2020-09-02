@@ -28,14 +28,11 @@ import org.springframework.web.context.WebApplicationContext;
 public class ChatController {
 
 	private final ChatService chatService;
-	private final UserService userService;
-//	private final Session s;
 	
 	@Autowired
-	public ChatController(@Qualifier("db") ChatService chatService, UserService userService) {
+	public ChatController(@Qualifier("db") ChatService chatService) {
 		System.out.println("sss");
 		this.chatService = chatService;
-		this.userService = userService;
 //		this.s = s;
 	}
 	

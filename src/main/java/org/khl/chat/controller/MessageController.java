@@ -1,5 +1,7 @@
 package org.khl.chat.controller;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.khl.chat.dto.MessageDto;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,5 +47,10 @@ public class MessageController {
 	@ResponseStatus(code = HttpStatus.OK)
 	public void edit (@PathVariable(name = "id") Long msgId, @RequestBody SendMessageRequest smReq) {
 		messageService.edit(msgId, smReq.getValue());
+	}
+	@GetMapping ("chats/{id}/messages")
+	@ResponseStatus(code = HttpStatus.OK)
+	public Collection<MessageDto> getMessages (@PathVariable(name = "id") Long chatId) {
+		return messageService.getMessages(chatId);
 	}
 }

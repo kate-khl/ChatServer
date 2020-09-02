@@ -107,5 +107,7 @@ public class SimpleChatApplication {
 //	static void method(A a) {
 //		System.out.println(a.gg(90));
 //	}
+	
+	
 
 }

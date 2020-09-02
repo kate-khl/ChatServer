@@ -22,6 +22,9 @@ import org.khl.chat.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -75,6 +78,8 @@ public class MessageServiceDbImpl implements MessageService{
 	
 	@Override
 	public Collection<MessageDto> getMessages(Long chatId){
+		
+	//	Pageable page = new PageRequest(0, 10, Sort.Direction.Asc, "firstName")
 		Collection<Message> msgs = chDao.findById(chatId).get().getMessages();
 		Collection<MessageDto> msgDtos = messageMapper.toListOfDto(msgs);
 		return msgDtos;
