@@ -18,6 +18,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -66,7 +68,8 @@ public class ChatServiceDbImpl implements ChatService{
 	@Override
 	@Transactional
 	public void addUsers(Collection<Long> userIds, Long chatId) {
-		Collection<User> users = uDao.findAllById(userIds);
+		Pageable pageParams = PageRequest.of(page, size);
+		Collection<User> users = uDao.findAllById(userIds, psgeParams);
 		Chat chat = chDao.getOne(chatId);
 		chat.getUsers().addAll(users);
 		chDao.save(chat);
