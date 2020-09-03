@@ -14,6 +14,7 @@ import org.khl.chat.dao.MessageDao;
 import org.khl.chat.dao.UserDao;
 import org.khl.chat.dto.ChatDto;
 import org.khl.chat.dto.MessageDto;
+import org.khl.chat.dto.PageParams;
 import org.khl.chat.dto.SendMessageRequest;
 import org.khl.chat.dto.UserDto;
 import org.khl.chat.entity.Chat;
@@ -77,14 +78,11 @@ public class MessageServiceDbImpl implements MessageService{
 	}
 	
 	@Override
-	public Collection<MessageDto> getMessages(Long chatId, int page, int size){
+	public Collection<MessageDto> getMessages(Long chatId, PageParams pp){
+			
+		Pageable psgeParams = PageRequest.of(pp.getPage(), pp.getSize());
 		
-	//	Pageable page = new PageRequest(0, 10, Sort.Direction.Asc, "firstName")
-	//	Collection<Message> msgs = chDao.findById(chatId).get().getMessages();
-		
-		Pageable psgeParams = PageRequest.of(page, size);
-		
-		Collection<Message> msgs = msgDao.findMessageByChats_IdContaining(chatId, psgeParams);
+		Collection<Message> msgs = msgDao.findMessageByChatId(chatId, psgeParams);
 		Collection<MessageDto> msgDtos = messageMapper.toListOfDto(msgs);
 		return msgDtos;
 	}

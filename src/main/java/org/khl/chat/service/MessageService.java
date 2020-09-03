@@ -3,6 +3,7 @@ package org.khl.chat.service;
 import java.util.Collection;
 
 import org.khl.chat.dto.MessageDto;
+import org.khl.chat.dto.PageParams;
 import org.khl.chat.dto.SendMessageRequest;
 
 public interface MessageService {
@@ -13,5 +14,5 @@ public interface MessageService {
 	
 	public MessageDto edit (Long id, String text);
 	
-	public Collection<MessageDto> getMessages (Long id, int page, int size);
+	public Collection<MessageDto> getMessages (Long id, PageParams pp);
 }

@@ -12,9 +12,11 @@ public class MessageDto {
 	private String value;
 	private UserDto author;
 	private Date date;
-	private ChatDto chat;
+//	private ChatDto chat;
 	
 
+	public MessageDto() {}
+	
 	public MessageDto(Long id, String value, UserDto author, Date date) {
 		super();
 		this.id = id;
@@ -34,7 +36,7 @@ public class MessageDto {
 		this.value = value;
 		this.author = authorDto;
 		this.date = new Date();
-		this.chat = chatDto;
+//		this.chat = chatDto;
 	}
 	
 	public Long getId() {
@@ -61,13 +63,13 @@ public class MessageDto {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	public void setChat(ChatDto chat) {
-		this.chat = chat;
-	}
-
-	public ChatDto getChat() {
-		return chat;
-	}
+//	public void setChat(ChatDto chat) {
+//		this.chat = chat;
+//	}
+//
+//	public ChatDto getChat() {
+//		return chat;
+//	}
 
 	
 }

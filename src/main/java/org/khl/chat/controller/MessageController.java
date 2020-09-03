@@ -5,6 +5,7 @@ import java.util.Collection;
 import javax.validation.Valid;
 
 import org.khl.chat.dto.MessageDto;
+import org.khl.chat.dto.PageParams;
 import org.khl.chat.dto.SendMessageRequest;
 import org.khl.chat.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,6 @@ public class MessageController {
 	@GetMapping ("chats/{id}/messages")
 	@ResponseStatus(code = HttpStatus.OK)
 	public Collection<MessageDto> getMessages (@PathVariable(name = "id") Long chatId, @RequestParam int page, @RequestParam int size) {
-		return messageService.getMessages(chatId, page, size);
+		return messageService.getMessages(chatId, new PageParams(page, size));
 	}
 }

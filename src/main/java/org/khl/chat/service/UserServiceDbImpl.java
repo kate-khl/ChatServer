@@ -1,9 +1,6 @@
 package org.khl.chat.service;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -14,6 +11,7 @@ import org.khl.chat.dto.UserDto;
 import org.khl.chat.entity.Chat;
 import org.khl.chat.entity.User;
 import org.khl.chat.exception.NotAuthorizeException;
+import org.khl.chat.mapper.ChatMapper;
 import org.khl.chat.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -26,15 +24,14 @@ import org.springframework.stereotype.Service;
 @Qualifier("db")
 public class UserServiceDbImpl implements UserService{
 
-	
 	@Autowired
 	private UserDao uDao;
 	@Autowired
 	private ChatDao chDao;
 	@Autowired
-	private UserMapper userMapper;;
-//	@Autowired
-//	private Session session;
+	private UserMapper userMapper;
+	@Autowired
+	private ChatMapper chatMapper;
 	
 	@Override
 	@Transactional
@@ -48,8 +45,8 @@ public class UserServiceDbImpl implements UserService{
 	@Transactional
 	public Collection<UserDto> getAllUsers(int page, int size) {
 		
-		Pageable psgeParams = PageRequest.of(page, size);
-		Page<User> users = uDao.findAll(psgeParams);
+		Pageable pageParams = PageRequest.of(page, size);
+		Page<User> users = uDao.findAll(pageParams);
 		
 		return userMapper.toListOfDto(users.getContent());
 	}
@@ -94,11 +91,9 @@ public class UserServiceDbImpl implements UserService{
 			if(u.getPassword().equals(password)) {
 				return true;
 			}
-			else throw new NotAuthorizeException("Ошибка авторизации1"); //ResponseStatusException(HttpStatus.UNAUTHORIZED, "ololololo");//;
+			else throw new NotAuthorizeException("Ошибка авторизации1"); 
 		}
 		else throw new NotAuthorizeException("Ошибка авторизации");
-		
-	//	return false;
 	}
 
 	@Override
@@ -106,30 +101,23 @@ public class UserServiceDbImpl implements UserService{
 	public UserDto findUserByEmail(String email) {
 		
 		User u = uDao.findByEmail(email).get();
-		//User result = opt.isPresent() ? opt.get() : null;
 		return userMapper.toDto(u);
 	}
 
 	@Override
 	@Transactional
 	public Collection<ChatDto> getChats(Long userId) {
-		User u = uDao.findById(userId).get();
-		//Collection chDtoList = this.toChatDtoColl(u.getChats());
-		return null; //chDtoList;
+		Collection<Chat> chats = chDao.findChatByUserId(userId);
+		
+		return chatMapper.toListOfDto(chats);
 	}
 	
 	@Override
+	@Transactional
 	public Collection<UserDto> getUsers(Long chatId) {
 		Chat c = chDao.getOne(chatId);
 		return userMapper.toListOfDto(c.getUsers());
 	}
 	
-//	private Collection<ChatDto> toChatDtoColl(Collection<Chat> chatList){
-//		Collection<ChatDto> chDtoList = new ArrayList<ChatDto>();
-//		for (Chat chat : chatList) {
-//			chDtoList.add(new ChatDto(chat));
-//		}
-//		return chDtoList;
-//	}
 
 }

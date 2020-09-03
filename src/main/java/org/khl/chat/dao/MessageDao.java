@@ -12,6 +12,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MessageDao extends JpaRepository<Message, Long> {
 	
-	List<Message> findMessageByChat_IdContaining(Long id, Pageable pageable);
+	List<Message> findMessageByChatId(Long id, Pageable page);
 
 }
