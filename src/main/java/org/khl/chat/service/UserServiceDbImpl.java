@@ -85,7 +85,7 @@ public class UserServiceDbImpl implements UserService{
 	@Override
 	@Transactional
 	public boolean checkLogin(String email, String password) {
-		User u = new User();
+		User u = new User(); 
 		u = uDao.findByEmail(email).get();
 		if (u.getEmail().equals(email)) {
 			if(u.getPassword().equals(password)) {
@@ -107,7 +107,7 @@ public class UserServiceDbImpl implements UserService{
 	@Override
 	@Transactional
 	public Collection<ChatDto> getChats(Long userId) {
-		Collection<Chat> chats = chDao.findChatByUserId(userId);
+		Collection<Chat> chats = chDao.findByUsersId(userId);
 		
 		return chatMapper.toListOfDto(chats);
 	}

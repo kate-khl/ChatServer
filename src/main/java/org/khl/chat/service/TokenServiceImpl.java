@@ -2,6 +2,7 @@ package org.khl.chat.service;
 
 import java.time.Instant;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import org.khl.chat.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class TokenServiceImpl implements TokenService {
 //				.setHeaderParam("typ", "JWT")
 //				.setIssuer("issuer")
 //				.setSubject()
-				.claim("email", userDto.getEmail())
+				.claim("email", userDto.getEmail()).setExpiration(new Date(System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(60)))
 				.claim("id", userDto.getId())
 				.claim("name", userDto.getName())
 				.claim("role", userDto.getRole())

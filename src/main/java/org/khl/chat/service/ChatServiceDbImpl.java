@@ -68,8 +68,7 @@ public class ChatServiceDbImpl implements ChatService{
 	@Override
 	@Transactional
 	public void addUsers(Collection<Long> userIds, Long chatId) {
-		Pageable pageParams = PageRequest.of(page, size);
-		Collection<User> users = uDao.findAllById(userIds, psgeParams);
+		Collection<User> users = uDao.findAllById(userIds);
 		Chat chat = chDao.getOne(chatId);
 		chat.getUsers().addAll(users);
 		chDao.save(chat);

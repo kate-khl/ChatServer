@@ -9,5 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ChatDao  extends JpaRepository<Chat, Long> {
 
-	List<Chat> findChatByUserId(Long id);
+	List<Chat> findByUsersId(Long id);
 }
