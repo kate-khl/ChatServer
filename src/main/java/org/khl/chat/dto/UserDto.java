@@ -25,7 +25,7 @@ public class UserDto {
 	
 	public UserDto() {}
 			
-	public UserDto(Long id, String name, String email, String password, String role) {
+	public UserDto(String name, String email, String password, String role) {
 		super();
 		this.id = id;
 		this.name = name;

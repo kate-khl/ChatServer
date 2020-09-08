@@ -43,7 +43,7 @@ public class AuthFilter extends HttpFilter {
 		if (ts.verificationToken(request.getHeader("Authorization"))) {
 			chain.doFilter(request, response);
 		} else
-			response.setStatus(401);
+			response.setStatus(401, "fff");
 	}
 
 //	@Override

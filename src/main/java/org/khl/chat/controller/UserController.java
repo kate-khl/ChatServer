@@ -50,6 +50,7 @@ public class UserController {
 	   }
 	   
 	   @PostMapping ("/auth")
+	   @ResponseStatus(code = HttpStatus.OK)
 	   public String auth(@RequestBody LoginRequestDto requestDto) {
 		   if (userService.checkLogin(requestDto.getEmail(), requestDto.getPassword())) {
 			   String token = tokenService.getToken(requestDto.getEmail(), requestDto.getPassword());
@@ -61,8 +62,6 @@ public class UserController {
 	   @PostMapping("/registration")
 	   @ResponseStatus(code = HttpStatus.CREATED)
 	   public UserDto create(@RequestBody @Valid UserDto user) {
-		   
-		   ;
 		   return userService.create(user);
 	   }
 	   
