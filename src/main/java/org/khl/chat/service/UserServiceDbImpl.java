@@ -60,8 +60,9 @@ public class UserServiceDbImpl implements UserService{
 
 	@Override
 	@Transactional
-	public boolean edit(User user) {
+	public boolean edit(UserDto uDto) {
 		try {
+			User user = userMapper.toEntity(uDto);
 			uDao.save(user);
 			return true;
 		} catch (Exception e) {

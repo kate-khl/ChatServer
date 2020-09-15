@@ -86,9 +86,9 @@ public class UserController {
 	   }	   
 	   @PatchMapping("/users/{id}")
 	   @ResponseStatus(code = HttpStatus.OK)
-	   public UserDto edit(@RequestBody @Valid User user, @PathVariable(name = "id") Long userId) {
-		   userService.edit(user);
-		   return userService.findById(user.getId());
+	   public UserDto edit(@RequestBody @Valid UserDto userDto, @PathVariable(name = "id") Long userId) {
+		   userService.edit(userDto);
+		   return userService.findById(userDto.getId());
 	   }
 	   
 		@GetMapping("/users/chats/{id}")
@@ -100,5 +100,5 @@ public class UserController {
 		@GetMapping("/users")
 		@ResponseStatus(code = HttpStatus.OK)
 		public void find(@RequestParam(required = false) String name, @RequestParam(required = false) String email) {
-			}
+		}
 }

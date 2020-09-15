@@ -19,7 +19,7 @@ public interface UserService {
 	   
 	   UserDto findById(Long id);
 	   
-	   boolean edit(User user);
+	   boolean edit(UserDto userDto);
 	   
 	   boolean remove(Long id);
 	   
