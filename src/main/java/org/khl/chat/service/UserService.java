@@ -1,19 +1,15 @@
 package org.khl.chat.service;
 
 import java.util.Collection;
-import java.util.List;
 
 import org.khl.chat.dto.ChatDto;
+import org.khl.chat.dto.RegistrationUserRequest;
 import org.khl.chat.dto.UserDto;
-import org.khl.chat.entity.Chat;
-import org.khl.chat.entity.User;
-import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.RequestParam;
 
 public interface UserService {
 
 
-	   UserDto create(UserDto userDto);
+	   UserDto create(RegistrationUserRequest user);
 	   
 	   Collection<UserDto> getAllUsers(int page, int size);
 	   

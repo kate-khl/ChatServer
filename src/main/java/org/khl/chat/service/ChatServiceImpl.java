@@ -18,8 +18,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -27,7 +25,7 @@ import org.springframework.web.context.WebApplicationContext;
 @Service
 @Qualifier("db")
 @Scope(scopeName = WebApplicationContext.SCOPE_REQUEST)
-public class ChatServiceDbImpl implements ChatService{
+public class ChatServiceImpl implements ChatService{
 
 	@Autowired
 	private ChatDao chDao;

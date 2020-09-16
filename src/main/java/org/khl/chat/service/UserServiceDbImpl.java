@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import org.khl.chat.dao.ChatDao;
 import org.khl.chat.dao.UserDao;
 import org.khl.chat.dto.ChatDto;
+import org.khl.chat.dto.RegistrationUserRequest;
 import org.khl.chat.dto.UserDto;
 import org.khl.chat.entity.Chat;
 import org.khl.chat.entity.User;
@@ -35,8 +36,8 @@ public class UserServiceDbImpl implements UserService{
 	
 	@Override
 	@Transactional
-	public UserDto create(UserDto userDto) {
-		User u = userMapper.toEntity(userDto);
+	public UserDto create(RegistrationUserRequest user) {
+		User u = userMapper.RegistrationUserRequestToEntity(user);
 		uDao.save(u);
 		return userMapper.toDto(u);
 	}

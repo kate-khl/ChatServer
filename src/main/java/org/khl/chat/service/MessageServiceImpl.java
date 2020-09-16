@@ -32,7 +32,7 @@ import org.springframework.web.context.WebApplicationContext;
 @Service
 @Qualifier("db")
 @Scope(scopeName = WebApplicationContext.SCOPE_REQUEST)
-public class MessageServiceDbImpl implements MessageService{
+public class MessageServiceImpl implements MessageService{
 
 	@Autowired
 	private MessageDao msgDao; 

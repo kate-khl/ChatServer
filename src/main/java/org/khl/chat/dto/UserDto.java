@@ -17,8 +17,8 @@ public class UserDto {
 	private String name;
 	@Email @NotNull 
 	private String email;
-	@NotBlank @NotNull 
-	private String  password;	
+//	@NotBlank @NotNull 
+//	private String  password;	
 	@NotBlank @NotNull 
 	private String  role;
 	
@@ -30,7 +30,7 @@ public class UserDto {
 		this.id = id;
 		this.name = name;
 		this.email = email;
-		this.password = password;
+//		this.password = password;
 		this.role = role;
 	}
 
@@ -61,12 +61,12 @@ public class UserDto {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
+//	public String getPassword() {
+//		return password;
+//	}
+//	public void setPassword(String password) {
+//		this.password = password;
+//	}
 	public String getRole() {
 		return role;
 	}

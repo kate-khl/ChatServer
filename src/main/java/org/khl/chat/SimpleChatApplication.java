@@ -58,7 +58,7 @@ public class SimpleChatApplication {
 	   	TypeMap<User, UserDto> tm = mapper.createTypeMap(User.class, UserDto.class); //.addMapping(User::getPassword, UserDto::setPassword);
 	   	tm.addMappings(skipModifiedFieldsMap);
 	   	
-	   	tm.addMappings(m -> m.skip(UserDto::setPassword));
+	 //  	tm.addMappings(m -> m.skip(UserDto::setPassword));
 	   	
 	   	
        mapper.getConfiguration()
@@ -72,7 +72,7 @@ public class SimpleChatApplication {
 	
 	private PropertyMap<User, UserDto> skipModifiedFieldsMap = new PropertyMap<User, UserDto>() {
 		 protected void configure() {
-			 skip().setPassword(null);
+			// skip().setPassword(null);
 		 }
 	};
 

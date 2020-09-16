@@ -31,9 +31,7 @@ public class ChatController {
 	
 	@Autowired
 	public ChatController(@Qualifier("db") ChatService chatService) {
-		System.out.println("sss");
 		this.chatService = chatService;
-//		this.s = s;
 	}
 	
 	@PostMapping("/chats")

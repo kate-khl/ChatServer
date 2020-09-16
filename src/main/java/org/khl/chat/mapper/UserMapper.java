@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
+import org.khl.chat.dto.RegistrationUserRequest;
 import org.khl.chat.dto.UserDto;
 import org.khl.chat.entity.User;
 import org.modelmapper.ModelMapper;
@@ -25,13 +26,14 @@ public class UserMapper {
         return Objects.isNull(dto) ? null : mapper.map(dto, User.class);
     }
 
+    public User RegistrationUserRequestToEntity(RegistrationUserRequest dto) {
+        return Objects.isNull(dto) ? null : mapper.map(dto, User.class);
+    }
 
     public UserDto toDto(User entity) {
 
         return Objects.isNull(entity) ? null : mapper.map(entity, UserDto.class);
     }
-    
-    
 
 	public Collection<UserDto> toListOfDto(Collection<User> source) {
 		Type listType = new TypeToken<List<UserDto>>() {}.getType();
