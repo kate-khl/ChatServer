@@ -58,8 +58,6 @@ public class UserControllerTests {
     
 	@Test
 	public void createUser() throws Exception {
-		//RegistrationUserRequest uDto = new RegistrationUserRequest("Тест", "create@test.ru", "123", "user");
-    	
     	mokMvcWithoutFilters.perform(post("/registration")	
 				.content("{\r\n\"id\":null,\"name\":\"Тест\",\"email\":\"user0@test.com\",\"password\":\"123\",\"role\":\"user\"\r\n}")
 				.contentType(MediaType.APPLICATION_JSON))
@@ -68,51 +66,44 @@ public class UserControllerTests {
 	
 	@Test
 	public void authorization() throws Exception {
-		
-		LoginRequestDto requestDto = new LoginRequestDto("auth@test.ru", "123");
 		mokMvcWithoutFilters.perform(post("/auth")	
-				.content("{\"email\" : \"k1@k.ru\",\"password\" : \"123\"}")
+				.content("{\"email\" : \"user4@test.com\",\"password\" : \"123\"}")
 				.contentType(MediaType.APPLICATION_JSON))
 		.andExpect(status().isOk());
 	}
 	
-//	@Test
-//	public void removeUser() throws Exception {
-//		
-//		UserDto user = uService.create(new RegistrationUserRequest("Тест", "delete@test.ru", "123", "user"));
-//		mockMvc.perform(delete("/users/{id}", user.getId())
-//			.header("Authorization", tokenService.getToken("auth@test.ru", "123")))
-//		.andExpect(status().isOk());
-//	}
-//	
-//	@Test
-//	public void readAllUsers() throws Exception {
-//		mockMvc.perform(get("/users/list")
-//			.header("Authorization", tokenService.getToken("auth@test.ru", "123"))
-//	        .param("page", "1")
-//	        .param("size", "5") )   
-//		.andExpect(status().isOk());
-//	}
-//	
-//	@Test
-//	public void findUserById() throws Exception {
-//		UserDto user = uService.create(new RegistrationUserRequest("Тест", "find@test.ru", "123", "user"));
-//		mockMvc.perform(get("/users/{id}", user.getId())
-//			.header("Authorization", tokenService.getToken("auth@test.ru", "123")))
-//		.andExpect(status().isOk());
-//	}
-//	
-//	@Test
-//	public void editUser() throws Exception {
-//		UserDto uDto = uService.create(new RegistrationUserRequest("Тест", "edit@test.ru", "123", "user"));
-//		uDto.setName("Тест1");
-//		
-//		mockMvc.perform(patch("/users/{id}", uDto.getId())
-//			.header("Authorization", tokenService.getToken("auth@test.ru", "123"))
-//			.content(objectMapper.writeValueAsString(uDto))
-//			.contentType(MediaType.APPLICATION_JSON))
-//		.andExpect(status().isOk());
-//	}
+	@Test
+	public void removeUser() throws Exception {
+		mockMvc.perform(delete("/users/{id}", 1000)
+			.header("Authorization", tokenService.getToken("user2@test.com", "123")))
+		.andExpect(status().isOk());
+	}
+	
+	@Test
+	public void readAllUsers() throws Exception {
+		mockMvc.perform(get("/users/list")
+			.header("Authorization", tokenService.getToken("user2@test.com", "123"))
+	        .param("page", "1")
+	        .param("size", "5") )   
+		.andExpect(status().isOk());
+	}
+	
+	@Test
+	public void findUserById() throws Exception {
+		mockMvc.perform(get("/users/{id}", 1001)
+			.header("Authorization", tokenService.getToken("user2@test.com", "123")))
+		.andExpect(status().isOk());
+	}
+	
+	@Test
+	public void editUser() throws Exception {
+
+		mockMvc.perform(patch("/users/{id}", 1002)
+			.header("Authorization", tokenService.getToken("user2@test.com", "123"))
+			.content("{\"id\" : \"1002\",\"name\" : \"Петя\",\"email\" : \"user3@test.com\",\"role\" : \"user\"}")
+			.contentType(MediaType.APPLICATION_JSON))
+		.andExpect(status().isOk());
+	}
 	
 //	@Test
 //	public void getUsersfromChat() throws Exception {
