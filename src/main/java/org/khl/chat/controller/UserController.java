@@ -91,6 +91,7 @@ public class UserController {
 		
 		@GetMapping("/users")
 		@ResponseStatus(code = HttpStatus.OK)
-		public void find(@RequestParam(required = false) String name, @RequestParam(required = false) String email) {
+		public Collection<UserDto> findUser(@RequestParam String name) {
+			return userService.findByName(name);
 		}
 }

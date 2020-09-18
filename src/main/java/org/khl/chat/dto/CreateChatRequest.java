@@ -6,16 +6,16 @@ import org.khl.chat.entity.User;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CreateRequestChat {
+public class CreateChatRequest {
 
 	private Collection<Long> userIds;
 	private String name;
 	private String message;
 //	private User creator;
 
-	public CreateRequestChat() {}
+	public CreateChatRequest() {}
 	
-	public CreateRequestChat(Collection<Long> users, String name, String message) {
+	public CreateChatRequest(Collection<Long> users, String name, String message) {
 		this.userIds = users;
 		this.name = name;
 		this.message = message;
@@ -26,9 +26,22 @@ public class CreateRequestChat {
 	}
 
 
-	public Collection<Long> getUsers() {
+	public Collection<Long> getUserIds() {
 		return userIds;
 	}
+
+	public void setUserIds(Collection<Long> userIds) {
+		this.userIds = userIds;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
 
 	public String getName() {
 		return name;

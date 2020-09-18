@@ -9,7 +9,7 @@ import org.khl.chat.dao.ChatDao;
 import org.khl.chat.dao.MessageDao;
 import org.khl.chat.dao.UserDao;
 import org.khl.chat.dto.ChatDto;
-import org.khl.chat.dto.CreateRequestChat;
+import org.khl.chat.dto.CreateChatRequest;
 import org.khl.chat.entity.Chat;
 import org.khl.chat.entity.Message;
 import org.khl.chat.entity.User;
@@ -40,11 +40,11 @@ public class ChatServiceImpl implements ChatService{
 	
 	@Override
 	@Transactional
-	public ChatDto createChat(CreateRequestChat crChat) {
+	public ChatDto createChat(CreateChatRequest crChat) {
 		
 		Chat c = new Chat();
 		c.setName(crChat.getName());
-		c.setUsers(uDao.findAllById(crChat.getUsers()));
+		c.setUsers(uDao.findAllById(crChat.getUserIds()));
 		
 		User author = uDao.findById(session.getId()).get();
 		c.getUsers().add(author);

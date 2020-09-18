@@ -1,5 +1,6 @@
 package org.khl.chat.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.transaction.Transactional;
@@ -23,7 +24,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Qualifier("db")
-public class UserServiceDbImpl implements UserService{
+public class UserServiceImpl implements UserService{
 
 	@Autowired
 	private UserDao uDao;
@@ -122,4 +123,10 @@ public class UserServiceDbImpl implements UserService{
 	}
 	
 
+	@Override
+	@Transactional
+	public Collection<UserDto> findByName(String name) {
+		Collection<User> users  = uDao.findByNameLike(name);
+		return userMapper.toListOfDto(users);
+	}
 }

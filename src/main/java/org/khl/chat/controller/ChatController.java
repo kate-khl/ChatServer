@@ -6,7 +6,7 @@ import javax.validation.Valid;
 
 import org.khl.chat.Session;
 import org.khl.chat.dto.ChatDto;
-import org.khl.chat.dto.CreateRequestChat;
+import org.khl.chat.dto.CreateChatRequest;
 import org.khl.chat.dto.UserDto;
 import org.khl.chat.service.ChatService;
 import org.khl.chat.service.UserService;
@@ -36,7 +36,7 @@ public class ChatController {
 	
 	@PostMapping("/chats")
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public ChatDto create(@RequestBody @Valid CreateRequestChat createReqChat) {
+	public ChatDto create(@RequestBody @Valid CreateChatRequest createReqChat) {
 		ChatDto chatDto = chatService.createChat(createReqChat);
 		return chatDto;
 	}

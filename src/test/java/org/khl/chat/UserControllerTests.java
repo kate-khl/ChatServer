@@ -12,7 +12,7 @@ import java.util.Collection;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.khl.chat.dto.ChatDto;
-import org.khl.chat.dto.CreateRequestChat;
+import org.khl.chat.dto.CreateChatRequest;
 import org.khl.chat.dto.LoginRequestDto;
 import org.khl.chat.dto.RegistrationUserRequest;
 import org.khl.chat.dto.UserDto;
@@ -44,11 +44,8 @@ public class UserControllerTests {
     @Autowired
     private WebApplicationContext context;
     @Autowired
-    private UserService uService;
-    @Autowired
     private TokenService tokenService;
-//    @Autowired
-//    private ChatService chatService;
+
     
     @BeforeEach
     public void setup() {
@@ -74,8 +71,8 @@ public class UserControllerTests {
 	
 	@Test
 	public void removeUser() throws Exception {
-		mockMvc.perform(delete("/users/{id}", 1000)
-			.header("Authorization", tokenService.getToken("user2@test.com", "123")))
+		mockMvc.perform(delete("/users/{id}", 1002)
+			.header("Authorization", tokenService.getToken("user4@test.com", "123")))
 		.andExpect(status().isOk());
 	}
 	
@@ -97,7 +94,6 @@ public class UserControllerTests {
 	
 	@Test
 	public void editUser() throws Exception {
-
 		mockMvc.perform(patch("/users/{id}", 1002)
 			.header("Authorization", tokenService.getToken("user2@test.com", "123"))
 			.content("{\"id\" : \"1002\",\"name\" : \"Петя\",\"email\" : \"user3@test.com\",\"role\" : \"user\"}")
@@ -105,20 +101,19 @@ public class UserControllerTests {
 		.andExpect(status().isOk());
 	}
 	
-//	@Test
-//	public void getUsersfromChat() throws Exception {
-//		
-//		UserDto uDto1 = uService.create(new RegistrationUserRequest("Тест1", "getUsersFromChat1@test.ru", "123", "user"));
-//		UserDto uDto2 = uService.create(new RegistrationUserRequest("Тест2", "getUsersFromChat1@test.ru", "123", "user"));
-//		
-//		Collection<Long> userIds = new ArrayList();
-//		userIds.add(uDto1.getId());
-//		userIds.add(uDto2.getId());
-//
-//		ChatDto chatDto = chatService.createChat(new CreateRequestChat(userIds, "Chat1", "Hello"));
-//		
-//		mockMvc.perform(get("/users/chats/{id}", chatDto.getId()))
-//		.andExpect(status().isOk());
-//	}
+	@Test
+	public void getUsersfromChat() throws Exception {		
+		mockMvc.perform(get("/users/chats/{id}",1004)
+			.header("Authorization", tokenService.getToken("user1@test.com", "123")))
+		.andExpect(status().isOk());
+	}
+	@Test
+	public void findUser() throws Exception {
+		mockMvc.perform(get("/users")
+			.header("Authorization", tokenService.getToken("user2@test.com", "123"))
+	        .param("name", "UserName1"))
+//	        .param("email", "user1@test.com") )   
+		.andExpect(status().isOk());
+	}
 	
 }

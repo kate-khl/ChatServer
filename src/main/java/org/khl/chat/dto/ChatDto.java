@@ -9,7 +9,7 @@ import org.khl.chat.entity.User;
 public class ChatDto {
 
 	private Long id;
-//	private Collection<UserDto> users;
+//	private Collection<Long> userIds;
 	private String name;
 //	private Collection<MessageDto> messages;
 	private UserDto author;

@@ -33,7 +33,7 @@ public class TokenServiceImpl implements TokenService {
 //				.setHeaderParam("typ", "JWT")
 //				.setIssuer("issuer")
 //				.setSubject()
-				.claim("email", userDto.getEmail()).setExpiration(new Date(System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(60)))
+				.claim("email", userDto.getEmail()).setExpiration(new Date(System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(600)))
 				.claim("id", userDto.getId())
 				.claim("name", userDto.getName())
 				.claim("role", userDto.getRole())

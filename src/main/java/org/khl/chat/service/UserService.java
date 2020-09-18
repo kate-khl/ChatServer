@@ -26,4 +26,6 @@ public interface UserService {
 	   public Collection<ChatDto> getChats(Long userId);
 	   
 	   public Collection<UserDto> getUsers(Long chatId);
+	   
+	   public Collection<UserDto> findByName(String name);
 }
