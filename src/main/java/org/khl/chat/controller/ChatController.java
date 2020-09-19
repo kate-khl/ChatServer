@@ -41,12 +41,6 @@ public class ChatController {
 		return chatDto;
 	}
 	
-	@DeleteMapping("/chats/{id}")
-	@ResponseStatus(code = HttpStatus.OK)
-	public void remove(@PathVariable @Valid Long id) {
-		chatService.removeChat(id);
-	}
-	
 	@PostMapping("/chats/{id}/users")
 	@ResponseStatus(code = HttpStatus.OK)
 	public void addUsers(@RequestBody @Valid Collection <Long> userIds, @PathVariable(name = "id") Long chatId) {
@@ -58,6 +52,4 @@ public class ChatController {
 	public void removeUsers(@RequestBody @Valid Collection <Long> userIds, @PathVariable(name = "id") Long chat_id) {
 		chatService.removeUsers(userIds, chat_id);
 	}
-
-	
 }

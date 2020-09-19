@@ -28,7 +28,7 @@ public class MessageController {
 
 	MessageService messageService;
 	
-	@Autowired
+	@Autowired 
 	public MessageController(@Qualifier("db") MessageService messageService) {
 		this.messageService = messageService;
 	}
@@ -39,17 +39,18 @@ public class MessageController {
 		messageService.send(smReq, chatId);
 	}
 	
-	@DeleteMapping ("/messages/{id}")
-	@ResponseStatus(code = HttpStatus.OK)
-	public void delete (@PathVariable(name = "id") Long id) {
-		messageService.delete(id);
-	}
+//	@DeleteMapping ("/messages/{id}")
+//	@ResponseStatus(code = HttpStatus.OK)
+//	public void delete (@PathVariable(name = "id") Long id) {
+//		messageService.delete(id);
+//	}
 	
 	@PostMapping ("/messages/{id}")
 	@ResponseStatus(code = HttpStatus.OK)
 	public void edit (@PathVariable(name = "id") Long msgId, @RequestBody SendMessageRequest smReq) {
 		messageService.edit(msgId, smReq.getValue());
 	}
+	
 	@GetMapping ("chats/{id}/messages")
 	@ResponseStatus(code = HttpStatus.OK)
 	public Collection<MessageDto> getMessages (@PathVariable(name = "id") Long chatId, @RequestParam int page, @RequestParam int size) {

@@ -1,24 +1,14 @@
 package org.khl.chat;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.util.ArrayList;
-import java.util.Collection;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.khl.chat.dto.ChatDto;
-import org.khl.chat.dto.CreateChatRequest;
-import org.khl.chat.dto.LoginRequestDto;
-import org.khl.chat.dto.RegistrationUserRequest;
-import org.khl.chat.dto.UserDto;
-import org.khl.chat.service.ChatService;
 import org.khl.chat.service.TokenService;
-import org.khl.chat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,8 +17,6 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -40,8 +28,6 @@ public class UserControllerTests {
 	@Autowired
 	private MockMvc mokMvcWithoutFilters;
     @Autowired
-    private ObjectMapper objectMapper;
-    @Autowired
     private WebApplicationContext context;
     @Autowired
     private TokenService tokenService;
@@ -50,7 +36,6 @@ public class UserControllerTests {
     @BeforeEach
     public void setup() {
     	this.mokMvcWithoutFilters = MockMvcBuilders.webAppContextSetup(context).build();
-
 	}
     
 	@Test
@@ -112,7 +97,6 @@ public class UserControllerTests {
 		mockMvc.perform(get("/users")
 			.header("Authorization", tokenService.getToken("user2@test.com", "123"))
 	        .param("name", "UserName1"))
-//	        .param("email", "user1@test.com") )   
 		.andExpect(status().isOk());
 	}
 	

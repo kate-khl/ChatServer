@@ -18,12 +18,12 @@ public class Message {
 
 	@Id
     @SequenceGenerator(name = "myGen")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	private String value;
 	
-	@ManyToOne(optional = false, cascade = CascadeType.ALL)
-	@JoinColumn(name = "autor_id")
+	@ManyToOne(optional = false, cascade = CascadeType.REFRESH)
+	@JoinColumn(name = "author_id")
 	private User author;
 	
 	private Date date;

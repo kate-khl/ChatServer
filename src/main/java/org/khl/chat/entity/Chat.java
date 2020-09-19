@@ -24,8 +24,8 @@ import org.khl.chat.dto.UserDto;
 public class Chat {
 
 	@Id
-    @SequenceGenerator(name = "cgatGen")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "chatGen")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
 	@ManyToOne(optional = false, cascade = CascadeType.ALL)
@@ -42,8 +42,8 @@ public class Chat {
     
 	private String name;
 	
-	@OneToMany(mappedBy = "chat")
-	private Collection<Message> messages;
+//	@OneToMany(mappedBy = "chat")
+//	private Collection<Message> messages;
 	
 	public Chat() {}
 	
@@ -110,9 +110,12 @@ public class Chat {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Collection<Message> getMessages() {
-		return messages;
-	}
+//	public void setMessages(Collection<Message> messages) {
+//		this.messages = messages;
+//	}
+//	public Collection<Message> getMessages() {
+//		return messages;
+//	}
 	
 //	public Collection<MessageDto> getMessagesDto() {
 //		Collection<MessageDto> msgsDto = new ArrayList<MessageDto>();
@@ -121,7 +124,4 @@ public class Chat {
 //		return msgsDto;
 //	}
 	
-	public void setMessages(Collection<Message> messages) {
-		this.messages = messages;
-	}
 }
