@@ -17,12 +17,12 @@ import org.khl.chat.dto.MessageDto;
 public class Message {
 
 	@Id
-    @SequenceGenerator(name = "myGen")
+    @SequenceGenerator(name = "msgGen")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	private String value;
 	
-	@ManyToOne(optional = false, cascade = CascadeType.REFRESH)
+	@ManyToOne(optional = false, cascade = CascadeType.ALL)
 	@JoinColumn(name = "author_id")
 	private User author;
 	

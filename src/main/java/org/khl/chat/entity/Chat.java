@@ -1,6 +1,5 @@
 package org.khl.chat.entity;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
@@ -15,10 +14,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
-
-import org.khl.chat.dto.ChatDto;
-import org.khl.chat.dto.MessageDto;
-import org.khl.chat.dto.UserDto;
 
 @Entity
 public class Chat {
@@ -42,8 +37,8 @@ public class Chat {
     
 	private String name;
 	
-//	@OneToMany(mappedBy = "chat")
-//	private Collection<Message> messages;
+	@OneToMany(mappedBy = "chat", fetch = FetchType.EAGER)
+	private Collection<Message> messages;
 	
 	public Chat() {}
 	

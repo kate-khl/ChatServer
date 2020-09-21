@@ -39,13 +39,13 @@ public class MessageControllerTests {
     	
     }
     
-//    @Test
-//    public void deleteMessage() throws Exception{
-//    	mockMvc.perform(delete("/messages/{id}", 1100)
-//    			.header("Authorization", tokenService.getToken("user1@test.com", "123")))
-//    	.andExpect(status().isOk());
-//    	
-//    }
+    @Test
+    public void deleteMessage() throws Exception{
+    	mockMvc.perform(delete("/messages/{id}", 1100)
+    			.header("Authorization", tokenService.getToken("user1@test.com", "123")))
+    	.andExpect(status().isOk());
+    	
+    }
     
     @Test
     public void editMessage() throws Exception{

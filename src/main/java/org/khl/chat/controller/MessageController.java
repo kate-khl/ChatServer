@@ -39,11 +39,11 @@ public class MessageController {
 		messageService.send(smReq, chatId);
 	}
 	
-//	@DeleteMapping ("/messages/{id}")
-//	@ResponseStatus(code = HttpStatus.OK)
-//	public void delete (@PathVariable(name = "id") Long id) {
-//		messageService.delete(id);
-//	}
+	@DeleteMapping ("/messages/{id}")
+	@ResponseStatus(code = HttpStatus.OK)
+	public void delete (@PathVariable(name = "id") Long id) {
+		messageService.delete(id);
+	}
 	
 	@PostMapping ("/messages/{id}")
 	@ResponseStatus(code = HttpStatus.OK)
