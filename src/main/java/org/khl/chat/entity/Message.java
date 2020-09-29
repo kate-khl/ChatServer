@@ -28,7 +28,7 @@ public class Message {
 	
 	private Date date;
 	
-	@ManyToOne(optional = false, cascade = CascadeType.ALL)
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "chat_id")
 	private Chat chat;
 //	private boolean deleted = false;

@@ -37,8 +37,8 @@ public class Chat {
     
 	private String name;
 	
-	@OneToMany(mappedBy = "chat", fetch = FetchType.EAGER)
-	private Collection<Message> messages;
+//	@OneToMany(mappedBy = "chat", fetch = FetchType.LAZY)
+//	private Collection<Message> messages;
 	
 	public Chat() {}
 	
