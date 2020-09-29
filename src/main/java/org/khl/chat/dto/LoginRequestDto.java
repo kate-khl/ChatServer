@@ -1,7 +1,10 @@
 package org.khl.chat.dto;
 
+import javax.validation.constraints.NotNull;
+
 public class LoginRequestDto {
 	
+	@NotNull
 	private String email;
 	private String password;
 	
