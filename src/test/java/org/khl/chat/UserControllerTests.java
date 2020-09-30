@@ -55,6 +55,14 @@ public class UserControllerTests {
 	}
 	
 	@Test
+	public void unauthorization() throws Exception {
+		mokMvcWithoutFilters.perform(post("/auth")	
+				.content("{\"email\" : \"user4555@test.com\",\"password\" : \"123\"}")
+				.contentType(MediaType.APPLICATION_JSON))
+		.andExpect(status().isUnauthorized());
+	}
+	
+	@Test
 	public void removeUser() throws Exception {
 		mockMvc.perform(delete("/users/{id}", 1002)
 			.header("Authorization", tokenService.getToken("user4@test.com", "123")))
