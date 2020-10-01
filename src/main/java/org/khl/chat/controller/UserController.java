@@ -33,13 +33,11 @@ public class UserController {
 
 	   private final UserService userService;
 	   private final TokenService tokenService;
-//	   private final Session session;
 
 	   @Autowired
 	   public UserController(@Qualifier("db") UserService userService, TokenService tokenService) {
 	       this.userService = userService;
 	       this.tokenService = tokenService;
-//	       this.session = session;
 	   }
 	   
 	   @PostMapping ("/auth")
