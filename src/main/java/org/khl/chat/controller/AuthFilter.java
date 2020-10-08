@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponse;
 
+import org.khl.chat.exception.AccessControlException;
 import org.khl.chat.service.TokenService;
 import org.khl.chat.service.TokenServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,17 +20,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class AuthFilter extends HttpFilter {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-//	private final TokenService tokenService;
-
-//	@Autowired
-//	public AuthFilter(TokenService tokenService) {
-//		this.tokenService = tokenService;
-//	}
-
+	
 	private final TokenService ts;
 
 	public AuthFilter(TokenService srv) {
@@ -42,15 +34,10 @@ public class AuthFilter extends HttpFilter {
 
 		if (ts.verificationToken(request.getHeader("Authorization"))) {
 			chain.doFilter(request, response);
-		} else
-			response.setStatus(401, "fff");
+		} 
+		else {
+			throw new AccessControlException("Ошибка авторизации");
+		}
 	}
-
-//	@Override
-//	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-//			throws IOException, ServletException {
-//
-//		System.out.println("here"); 
-//	}
 
 }

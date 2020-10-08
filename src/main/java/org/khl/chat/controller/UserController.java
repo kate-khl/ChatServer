@@ -5,6 +5,7 @@ import java.util.Collection;
 import javax.validation.Valid;
 
 import org.khl.chat.dto.LoginRequestDto;
+import org.khl.chat.dto.LoginResponseDto;
 import org.khl.chat.dto.RegistrationUserRequest;
 import org.khl.chat.dto.UserDto;
 import org.khl.chat.service.TokenService;
@@ -32,21 +33,23 @@ public class UserController {
 
 	   private final UserService userService;
 	   private final TokenService tokenService;
-//	   private final Session session;
 
 	   @Autowired
 	   public UserController(@Qualifier("db") UserService userService, TokenService tokenService) {
 	       this.userService = userService;
 	       this.tokenService = tokenService;
-//	       this.session = session;
 	   }
 	   
 	   @PostMapping ("/auth")
 	   @ResponseStatus(code = HttpStatus.OK)
-	   public String auth(@RequestBody LoginRequestDto requestDto) {
+	   public LoginResponseDto auth(@RequestBody LoginRequestDto requestDto) {
 		   if (userService.checkLogin(requestDto.getEmail(), requestDto.getPassword())) {
+			   
 			   String token = tokenService.getToken(requestDto.getEmail(), requestDto.getPassword());
-			   return token;
+			   UserDto uDto = userService.findUserByEmail(requestDto.getEmail());
+			   
+			   LoginResponseDto response = new LoginResponseDto(token, uDto);
+			   return response;
 		   }
 		   else return null;
 	   }

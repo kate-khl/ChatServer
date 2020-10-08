@@ -19,9 +19,8 @@ public class Session {
 	private String name;
 	private String email;
 	
-	
 	private Session() {}
-	
+
 	public Long getId() {
 		return id;
 	}

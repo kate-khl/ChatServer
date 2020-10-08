@@ -2,6 +2,8 @@ package org.khl.chat.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 import javax.transaction.Transactional;
 
@@ -47,10 +49,11 @@ public class UserServiceImpl implements UserService{
 	@Transactional
 	public Collection<UserDto> getAllUsers(int page, int size) {
 		
-		Pageable pageParams = PageRequest.of(page, size);
-		Page<User> users = uDao.findAll(pageParams);
+//		Pageable pageParams = PageRequest.of(page, size);
+//		Page<User> users = uDao.findAll(pageParams);
+		List<User> users = uDao.findAll();
 		
-		return userMapper.toListOfDto(users.getContent());
+		return userMapper.toListOfDto(users);
 	}
 
 	@Override
@@ -89,14 +92,20 @@ public class UserServiceImpl implements UserService{
 	@Transactional
 	public boolean checkLogin(String email, String password) {
 		User u = new User(); 
+		try {
 		u = uDao.findByEmail(email).get();
-		if (u.getEmail().equals(email)) {
-			if(u.getPassword().equals(password)) {
-				return true;
+			if (u.getEmail().equals(email)) {
+				if(u.getPassword().equals(password)) {
+					return true;
+				}
+				else return false;
 			}
-			else throw new NotAuthorizeException("Ошибка авторизации1"); 
+			else return false;
 		}
-		else throw new NotAuthorizeException("Ошибка авторизации");
+		catch (NoSuchElementException ex) {
+			ex.getMessage();
+			throw new NotAuthorizeException("Ошибка авторизации");
+		}
 	}
 
 	@Override
