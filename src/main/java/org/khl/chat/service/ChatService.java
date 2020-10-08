@@ -13,7 +13,7 @@ public interface ChatService {
 	public ChatDto createChat(CreateChatRequest chat);
 	public void addUsers(Collection<Long> userIds, Long id);
 	public void removeUsers(Collection<Long> userIds, Long id);
-//	public Collection<UserDto> getUsers(Long id);
+	public Collection<ChatDto> getChats(Long userId);
 	public void removeChat(Long id);
 	public ChatDto findChat(Long id);
 //	public Collection<MessageDto> getMessages(Long chatId);

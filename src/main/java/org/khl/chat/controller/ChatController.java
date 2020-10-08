@@ -1,5 +1,6 @@
 package org.khl.chat.controller;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.validation.Valid;
@@ -39,6 +40,12 @@ public class ChatController {
 	public ChatDto create(@RequestBody @Valid CreateChatRequest createReqChat) {
 		ChatDto chatDto = chatService.createChat(createReqChat);
 		return chatDto;
+	}
+	
+	@GetMapping("/user/{id}/chats")
+	@ResponseStatus(code = HttpStatus.CREATED)
+	public Collection<ChatDto> getChats(@PathVariable(name = "id") Long userId) {
+		return chatService.getChats(userId);
 	}
 	
 	@PostMapping("/chats/{id}/users")

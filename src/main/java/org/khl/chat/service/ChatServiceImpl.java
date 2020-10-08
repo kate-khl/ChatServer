@@ -14,6 +14,7 @@ import org.khl.chat.entity.Chat;
 import org.khl.chat.entity.Message;
 import org.khl.chat.entity.User;
 import org.khl.chat.exception.AccessControlException;
+import org.khl.chat.mapper.ChatMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -37,6 +38,8 @@ public class ChatServiceImpl implements ChatService{
 	private Session session;
 	@Autowired
 	private ModelMapper mapper;
+	@Autowired
+	private ChatMapper chatMapper;
 	
 	@Override
 	@Transactional
@@ -53,14 +56,21 @@ public class ChatServiceImpl implements ChatService{
 		
 		msgDao.save(new Message(crChat.getMessage(), author, c));
 		chDao.save(c);
-		return mapper.map(c, ChatDto.class);
+		return chatMapper.toDto(c);
 	}
 
 	@Override
 	@Transactional
 	public ChatDto findChat(Long id) {
 		Chat chat = chDao.getOne(id);
-		return mapper.map(chat, ChatDto.class);
+		return chatMapper.toDto(chat);
+	}
+
+	@Override
+	public Collection<ChatDto> getChats(Long userId) {
+		Collection<Chat> chats = chDao.findByUsersId(userId);
+		
+		return chatMapper.toListOfDto(chats);
 	}
 
 	@Override

@@ -100,6 +100,8 @@ public class UserControllerTests {
 			.header("Authorization", tokenService.getToken("user1@test.com", "123")))
 		.andExpect(status().isOk());
 	}
+	
+
 	@Test
 	public void findUser() throws Exception {
 		mockMvc.perform(get("/users")

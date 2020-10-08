@@ -1,6 +1,7 @@
 package org.khl.chat;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -45,6 +46,13 @@ public class ChatControllerTests {
 			.contentType(MediaType.APPLICATION_JSON))
 		.andExpect(status().isOk());
 	}
+	
+	
+	@Test public void getChats() throws Exception {
+	mockMvc.perform(get("/users/{id}/chats", 1000)
+			.header("Authorization", tokenService.getToken("user1@test.com", "123")))
+	.andExpect(status().isOk());
+}
 	
 	@Test
 	public void removeUsers() throws Exception {

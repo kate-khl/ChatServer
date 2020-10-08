@@ -4,10 +4,12 @@ import java.util.Collection;
 
 import javax.validation.Valid;
 
+import org.khl.chat.dto.ChatDto;
 import org.khl.chat.dto.LoginRequestDto;
 import org.khl.chat.dto.LoginResponseDto;
 import org.khl.chat.dto.RegistrationUserRequest;
 import org.khl.chat.dto.UserDto;
+import org.khl.chat.service.ChatService;
 import org.khl.chat.service.TokenService;
 import org.khl.chat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,12 +34,14 @@ import org.springframework.web.context.WebApplicationContext;
 public class UserController {
 
 	   private final UserService userService;
+//	   private final ChatService chatService;
 	   private final TokenService tokenService;
 
 	   @Autowired
 	   public UserController(@Qualifier("db") UserService userService, TokenService tokenService) {
 	       this.userService = userService;
 	       this.tokenService = tokenService;
+//	       this.chatService = chatService;
 	   }
 	   
 	   @PostMapping ("/auth")
