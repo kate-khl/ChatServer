@@ -2,6 +2,7 @@ package org.khl.chat.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import javax.transaction.Transactional;
@@ -48,10 +49,11 @@ public class UserServiceImpl implements UserService{
 	@Transactional
 	public Collection<UserDto> getAllUsers(int page, int size) {
 		
-		Pageable pageParams = PageRequest.of(page, size);
-		Page<User> users = uDao.findAll(pageParams);
+//		Pageable pageParams = PageRequest.of(page, size);
+//		Page<User> users = uDao.findAll(pageParams);
+		List<User> users = uDao.findAll();
 		
-		return userMapper.toListOfDto(users.getContent());
+		return userMapper.toListOfDto(users);
 	}
 
 	@Override

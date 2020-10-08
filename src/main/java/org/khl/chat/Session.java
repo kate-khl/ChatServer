@@ -19,25 +19,8 @@ public class Session {
 	private String name;
 	private String email;
 	
-	
 	private Session() {}
 
-//	@Autowired
-//	public Session(@Autowired HttpServletRequest req) {
-//		String token = req.getHeader("Authorization");
-//		if (token != null) {
-//			Session ss = new Session();
-//			ss = fromToken(token);
-//			
-//			this.email = ss.getEmail();
-//			this.id = ss.getId();
-//			this.name = ss.getName();
-//			this.role = ss.getRole();
-//		}
-//		
-//		
-//	}
-	
 	public Long getId() {
 		return id;
 	}

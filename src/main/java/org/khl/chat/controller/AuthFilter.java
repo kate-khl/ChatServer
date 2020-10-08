@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponse;
 
+import org.khl.chat.exception.AccessControlException;
 import org.khl.chat.service.TokenService;
 import org.khl.chat.service.TokenServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,11 +33,11 @@ public class AuthFilter extends HttpFilter {
 			throws IOException, ServletException {
 
 		if (ts.verificationToken(request.getHeader("Authorization"))) {
-//			if (ts)
 			chain.doFilter(request, response);
 		} 
-//		else
-//			response.setStatus(401, "fff");
+		else {
+			throw new AccessControlException("Ошибка авторизации");
+		}
 	}
 
 }
