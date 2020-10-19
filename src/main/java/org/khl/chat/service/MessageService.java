@@ -8,7 +8,7 @@ import org.khl.chat.dto.SendMessageRequest;
 
 public interface MessageService {
 
-	public void send (SendMessageRequest smReq, Long chatId);
+	public MessageDto send (SendMessageRequest smReq, Long chatId);
 	
 	public void delete (Long id);
 	

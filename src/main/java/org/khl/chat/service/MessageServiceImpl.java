@@ -46,13 +46,14 @@ public class MessageServiceImpl implements MessageService{
 	private  MessageMapper messageMapper;
 	
 	@Override
-	public void send(SendMessageRequest smReq, Long chatId) {
+	public MessageDto send(SendMessageRequest smReq, Long chatId) {
 		
 		Chat ch = chDao.findById(chatId).get();
 		User author = uDao.findById(session.getId()).get();
 		Message msg = new Message(smReq.getValue(), author, ch);
 		msgDao.save(msg);
 		
+		return messageMapper.toDto(msg);
 	}
 
 	@Override
