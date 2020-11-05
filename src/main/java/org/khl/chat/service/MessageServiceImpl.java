@@ -4,6 +4,7 @@ import org.khl.chat.exception.AccessControlException;
 import org.khl.chat.mapper.MessageMapper;
 import org.khl.chat.mapper.UserMapper;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.annotation.PostConstruct;
@@ -23,6 +24,7 @@ import org.khl.chat.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -83,7 +85,7 @@ public class MessageServiceImpl implements MessageService{
 			
 		Pageable psgeParams = PageRequest.of(pp.getPage(), pp.getSize());
 		
-		Collection<Message> msgs = msgDao.findMessageByChatId(chatId, psgeParams);
+		Collection<Message> msgs =  msgDao.findByChatId(chatId); //msgDao.findByChatId(chatId, psgeParams);
 		Collection<MessageDto> msgDtos = messageMapper.toListOfDto(msgs);
 		return msgDtos;
 	}
