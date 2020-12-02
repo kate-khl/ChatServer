@@ -31,8 +31,7 @@ public class AuthFilter extends HttpFilter {
 	@Override
 	protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-
-		if (ts.verificationToken(request.getHeader("Authorization"))) {
+		if ("OPTIONS".equals(request.getMethod()) || ts.verificationToken(request.getHeader("Authorization"))) {
 			chain.doFilter(request, response);
 		} 
 		else {

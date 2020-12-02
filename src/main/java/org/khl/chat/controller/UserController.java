@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -29,6 +30,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
+@CrossOrigin(origins = "http://127.0.0.1:8888")
 @RestController
 @Scope(scopeName = WebApplicationContext.SCOPE_REQUEST)
 public class UserController {
@@ -73,8 +75,8 @@ public class UserController {
 	   
 	   @GetMapping("/users/list")
 	   @ResponseStatus(code = HttpStatus.OK)
-	   public Collection<UserDto> readAll(@RequestParam int page, @RequestParam int size) {
-		   return userService.getAllUsers(page, size);
+	   public Collection<UserDto> readAll() {
+		   return userService.getAllUsers();
 	   }
 	   
 	   @GetMapping("/users/{id}")

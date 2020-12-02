@@ -58,7 +58,7 @@ public class Session {
 
 	
 	public static Session fromToken(String token) {
-
+		if(token == null) return new Session();
 		token = token.replace("_", "+").replace("-", "/");
 		
 		String[] split_string = token.split("\\.");

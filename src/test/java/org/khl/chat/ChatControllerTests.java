@@ -49,9 +49,9 @@ public class ChatControllerTests {
 	
 	
 	@Test public void getChats() throws Exception {
-	mockMvc.perform(get("/users/{id}/chats", 1000)
+	mockMvc.perform(get("/user/{id}/chats", 1000)
 			.header("Authorization", tokenService.getToken("user1@test.com", "123")))
-	.andExpect(status().isOk());
+	.andExpect(status().isCreated());
 }
 	
 	@Test

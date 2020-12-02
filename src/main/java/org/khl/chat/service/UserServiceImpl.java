@@ -47,10 +47,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	@Transactional
-	public Collection<UserDto> getAllUsers(int page, int size) {
-		
-//		Pageable pageParams = PageRequest.of(page, size);
-//		Page<User> users = uDao.findAll(pageParams);
+	public Collection<UserDto> getAllUsers() {
 		List<User> users = uDao.findAll();
 		
 		return userMapper.toListOfDto(users);

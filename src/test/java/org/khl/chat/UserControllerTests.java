@@ -73,8 +73,7 @@ public class UserControllerTests {
 	public void readAllUsers() throws Exception {
 		mockMvc.perform(get("/users/list")
 			.header("Authorization", tokenService.getToken("user2@test.com", "123"))
-	        .param("page", "1")
-	        .param("size", "5") )   
+)   
 		.andExpect(status().isOk());
 	}
 	

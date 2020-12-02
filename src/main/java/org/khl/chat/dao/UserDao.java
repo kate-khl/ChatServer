@@ -19,6 +19,6 @@ public interface UserDao  extends JpaRepository<User, Long> {
 	
 	ArrayList<User> findByNameLike(String name);
 	
-	Page<User> findAll(Pageable page);
+	ArrayList<User> findAll();
 	
 }
