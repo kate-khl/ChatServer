@@ -11,8 +11,6 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.google.gson.Gson;
 
-//@Component
-//@Scope(scopeName = WebApplicationContext.SCOPE_REQUEST)
 public class Session {
 
 	private Long id;

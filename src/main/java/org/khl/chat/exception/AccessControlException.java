@@ -3,7 +3,7 @@ package org.khl.chat.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(code = HttpStatus.NOT_ACCEPTABLE)
+@ResponseStatus(code = HttpStatus.UNAUTHORIZED)
 public class AccessControlException extends RuntimeException{
 
 	public AccessControlException(){

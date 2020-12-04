@@ -37,7 +37,7 @@ public class SimpleChatApplication {
 	      = new FilterRegistrationBean<>();
 	        
 	    registrationBean.setFilter(new AuthFilter(srv));
-	    registrationBean.addUrlPatterns("/users/*", "/chats/*", "/messages/*");
+	    registrationBean.addUrlPatterns("/users/*", "/chats/*", "/messages/*", "/user/*");
 	    registrationBean.setOrder(0);
 	    
 	    return registrationBean;    
@@ -55,11 +55,8 @@ public class SimpleChatApplication {
 	public ModelMapper modelMapper() {
 	   ModelMapper mapper = new ModelMapper();
 	   
-	   	TypeMap<User, UserDto> tm = mapper.createTypeMap(User.class, UserDto.class); //.addMapping(User::getPassword, UserDto::setPassword);
+	   	TypeMap<User, UserDto> tm = mapper.createTypeMap(User.class, UserDto.class); 
 	   	tm.addMappings(skipModifiedFieldsMap);
-	   	
-	 //  	tm.addMappings(m -> m.skip(UserDto::setPassword));
-	   	
 	   	
        mapper.getConfiguration()
 	       .setMatchingStrategy(MatchingStrategies.STRICT)
@@ -74,40 +71,6 @@ public class SimpleChatApplication {
 		 protected void configure() {
 			// skip().setPassword(null);
 		 }
-	};
-
-	
-//	interface A{
-//		String gg(int g);
-//	}
-//	
-//	public static void main(String[] args) {
-//		method(new A() {
-//			@Override
-//			public String gg(int g) {
-//				return "n:" + g;
-//			}
-//			
-//		});
-//		
-//		method((arg) -> "n:" + arg);
-//		
-//		method((arg) -> {
-//			return "n:" + arg;
-//		});
-//		
-//		method(MessageServiceDbImpl::hh);
-//		
-//	}
-//	
-//	static String hh(int gg) {
-//		return "n:" + gg;
-//	}
-//	
-//	static void method(A a) {
-//		System.out.println(a.gg(90));
-//	}
-	
-	
+	};	
 
 }

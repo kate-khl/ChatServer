@@ -1,6 +1,5 @@
 package org.khl.chat.service;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -19,9 +18,6 @@ import org.khl.chat.mapper.ChatMapper;
 import org.khl.chat.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -127,7 +123,6 @@ public class UserServiceImpl implements UserService{
 		Chat c = chDao.getOne(chatId);
 		return userMapper.toListOfDto(c.getUsers());
 	}
-	
 
 	@Override
 	@Transactional

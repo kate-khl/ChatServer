@@ -1,13 +1,8 @@
 package org.khl.chat.dto;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
-import org.khl.chat.entity.User;
 
 
 public class UserDto {
@@ -17,8 +12,6 @@ public class UserDto {
 	private String name;
 	@Email @NotNull 
 	private String email;
-//	@NotBlank @NotNull 
-//	private String  password;	
 	@NotBlank @NotNull 
 	private String  role;
 	
@@ -27,10 +20,8 @@ public class UserDto {
 			
 	public UserDto(String name, String email, String password, String role) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.email = email;
-//		this.password = password;
 		this.role = role;
 	}
 	

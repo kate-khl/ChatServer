@@ -12,7 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 @Entity
@@ -27,7 +26,6 @@ public class Chat {
 	@JoinColumn(name = "author_id")
 	private User author;
 
-	//	@ManyToMany(mappedBy = "chats")
     @ManyToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
     		name = "users_chats",
@@ -37,41 +35,8 @@ public class Chat {
     
 	private String name;
 	
-//	@OneToMany(mappedBy = "chat", fetch = FetchType.LAZY)
-//	private Collection<Message> messages;
-	
 	public Chat() {}
 	
-//	public Chat(ChatDto chatDto) {
-//		super();
-//		this.id = chatDto.getId();
-//		this.users = convertDtoToUsers(chatDto.getUsers());
-//		this.name = chatDto.getName();
-//		this.author = chatDto.getAuthor();
-//		this.messages = convertMsgDtoToMsg(chatDto.getMessages());
-//	}
-
-	
-//	private static Collection<User> convertDtoToUsers(Collection<UserDto> usersDto) {
-//		Collection<User> users = new ArrayList<User>();  
-//		
-//		for (UserDto user : usersDto) {
-//			User u = new User(user);
-//			users.add(u);
-//		}
-//		return users;
-//	}
-	
-//	private static Collection<Message> convertMsgDtoToMsg(Collection<MessageDto> msgDto) {
-//		Collection<Message> msgs = new ArrayList<Message>();  
-//		
-//		for (MessageDto msg : msgDto) {
-//			Message m = new Message(msg);
-//			msgs.add(m);
-//		}
-//		return msgs;
-//	}
-
 	public Long getId() {
 		return id;
 	}
@@ -85,14 +50,7 @@ public class Chat {
 	
 	public void setAuthor(User author) {
 		this.author = author;
-	}
-//	public Collection<UserDto> getUsersDto() {
-//		Collection<UserDto> usersDto = new ArrayList<UserDto>();
-//		for (User u : this.users)
-//			usersDto.add(new UserDto(u));
-//		return usersDto;
-//	}
-	
+	}	
 	public Collection<User> getUsers() {
 		return users;
 	}
@@ -105,18 +63,5 @@ public class Chat {
 	public void setName(String name) {
 		this.name = name;
 	}
-//	public void setMessages(Collection<Message> messages) {
-//		this.messages = messages;
-//	}
-//	public Collection<Message> getMessages() {
-//		return messages;
-//	}
-	
-//	public Collection<MessageDto> getMessagesDto() {
-//		Collection<MessageDto> msgsDto = new ArrayList<MessageDto>();
-//		for (Message u : this.messages)
-//			msgsDto.add(new MessageDto(u));
-//		return msgsDto;
-//	}
-	
+
 }

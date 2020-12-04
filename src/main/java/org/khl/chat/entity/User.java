@@ -2,20 +2,15 @@ package org.khl.chat.entity;
 
 import java.util.Collection;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 
 import org.khl.chat.dto.UserDto;
-
-import javax.persistence.JoinColumn;
 
 @Entity 
 public class User {
@@ -48,7 +43,6 @@ public class User {
 		this.id = u.getId();
 		this.name = u.getName();
 		this.email = u.getEmail();
-	//	this.password = u.getPassword();
 		this.role = u.getRole();
 	}
 	

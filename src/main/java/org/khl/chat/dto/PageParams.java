@@ -4,9 +4,7 @@ public class PageParams {
 	
 	private int page;
 	private int size;
-	
-	
-	
+
 	public PageParams(int page, int size) {
 		super();
 		this.page = page;

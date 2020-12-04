@@ -31,8 +31,6 @@ public class Message {
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "chat_id")
 	private Chat chat;
-//	private boolean deleted = false;
-
 	
 	public Message() {}
 	

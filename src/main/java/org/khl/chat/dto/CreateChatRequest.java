@@ -1,8 +1,7 @@
 package org.khl.chat.dto;
 
 import java.util.Collection;
-import org.khl.chat.entity.Message;
-import org.khl.chat.entity.User;
+
 import org.springframework.stereotype.Component;
 
 @Component
@@ -11,7 +10,6 @@ public class CreateChatRequest {
 	private Collection<Long> userIds;
 	private String name;
 	private String message;
-//	private User creator;
 
 	public CreateChatRequest() {}
 	
@@ -41,7 +39,6 @@ public class CreateChatRequest {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-
 
 	public String getName() {
 		return name;

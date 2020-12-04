@@ -43,7 +43,6 @@ public class UserController {
 	   public UserController(@Qualifier("db") UserService userService, TokenService tokenService) {
 	       this.userService = userService;
 	       this.tokenService = tokenService;
-//	       this.chatService = chatService;
 	   }
 	   
 	   @PostMapping ("/auth")

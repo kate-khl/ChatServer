@@ -92,7 +92,6 @@ public class ChatServiceImpl implements ChatService{
 		chDao.save(chat);
 	}
 
-
 	@Override
 	@Transactional
 	public void removeChat(Long id) {

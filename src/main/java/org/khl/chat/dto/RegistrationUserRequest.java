@@ -15,8 +15,6 @@ public class RegistrationUserRequest {
 	@NotBlank @NotNull 
 	private String  role;
 	
-	
-	
 	public RegistrationUserRequest(@NotBlank @NotNull String name, @Email @NotNull String email,
 			@NotBlank @NotNull String password, @NotBlank @NotNull String role) {
 		super();
@@ -46,7 +44,6 @@ public class RegistrationUserRequest {
 	public String getRole() {
 		return role;
 	}
-	
 	public void setRole(String role) {
 		this.role = role;
 	}
