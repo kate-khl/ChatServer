@@ -1,6 +1,5 @@
 package org.khl.chat.service;
 
-import java.time.Instant;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.impl.TextCodec;
 
 @Service
 
