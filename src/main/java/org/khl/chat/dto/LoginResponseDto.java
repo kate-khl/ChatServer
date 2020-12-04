@@ -5,8 +5,6 @@ public class LoginResponseDto {
 	private String token;
 	private UserDto userDto;
 	
-	
-	
 	public LoginResponseDto(String token, UserDto userDto) {
 		super();
 		this.token = token;
@@ -24,7 +22,4 @@ public class LoginResponseDto {
 	public void setUserDto(UserDto status) {
 		this.userDto = status;
 	}
-
-	
-	
 }
